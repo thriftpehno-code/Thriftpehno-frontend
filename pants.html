@@ -14,27 +14,26 @@
     <div style="border:1px solid white; padding:20px;">
 
       <!-- MAIN IMAGE -->
-      <img src="https://i.postimg.cc/W1J4yxtj/1776084634437-publer-com.jpg" style="width:100%; max-height:500px; object-fit:cover;">
+      <img src="https://i.postimg.cc/W1J4yxtj/1776084634437-publer-com.jpg" 
+      style="width:100%; max-height:500px; object-fit:cover;">
 
       <!-- PRODUCT DETAILS -->
       <h2>Diesel Industrial Denim</h2>
       <p>Price: ₹2499</p>
       <p>Size: 34-35</p>
 
-      <!-- BUTTONS -->
-      <div style="margin-top:20px; display:flex; gap:15px; flex-wrap:wrap;">
+      <!-- ADD TO CART -->
+      <button onclick="addToCart()" 
+      style="border:1px solid white; padding:10px 20px; background:black; color:white; cursor:pointer;">
+        Add to Cart
+      </button>
 
-       <a href="https://www.instagram.com/p/DVJdJx4DLOg/?igsh=MWQwbWM0ejV0ajM1Zw==" target="_blank"
-style="border:1px solid white; padding:10px 20px; color:white; text-decoration:none;">
-  View on Instagram
-</a>
-
-        <<a href="https://wa.me/919370820852?text=Hi%20I%20want%20to%20buy%20Diesel%20Industrial%20Denim%20(Size%2034-35)%20for%20₹2499.%20Here%20is%20the%20product:%20https%3A%2F%2Fwww.instagram.com%2Fp%2FDVJdJx4DLOg%2F" 
-style="border:1px solid white; padding:10px 20px; color:white; text-decoration:none;">
-  Buy on WhatsApp
-</a>
-
-      </div>
+      <!-- BUY NOW (RAZORPAY READY) -->
+      <br><br>
+      <a href="#" target="_blank"
+      style="border:1px solid white; padding:10px 20px; color:white; text-decoration:none;">
+        Buy Now
+      </a>
 
       <!-- IMAGE GALLERY -->
       <div style="display:flex; gap:10px; overflow-x:auto; margin-top:20px;">
@@ -61,9 +60,34 @@ style="border:1px solid white; padding:10px 20px; color:white; text-decoration:n
 
   </div>
 
+  <!-- GO TO CART -->
+  <div style="text-align:center; margin:30px;">
+    <a href="cart.html" style="color:white;">Go to Cart →</a>
+  </div>
+
+  <!-- BACK -->
   <div style="text-align:center; margin:30px;">
     <a href="index.html" style="color:white;">← Back to Home</a>
   </div>
+
+  <!-- SCRIPT -->
+  <script>
+    function addToCart() {
+      let cart = JSON.parse(localStorage.getItem("cart")) || [];
+
+      cart.push({
+        name: "Diesel Industrial Denim",
+        price: 2499,
+        size: "34-35",
+        category: "pant",
+        image: "https://i.postimg.cc/W1J4yxtj/1776084634437-publer-com.jpg"
+      });
+
+      localStorage.setItem("cart", JSON.stringify(cart));
+
+      alert("Added to cart");
+    }
+  </script>
 
 </body>
 </html>
