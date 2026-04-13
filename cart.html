@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Cart</title>
+</head>
+
+<body style="background:black; color:white; font-family:Arial; text-align:center;">
+
+  <h1>Your Cart</h1>
+
+  <div id="cart-items"></div>
+
+  <h2 id="total"></h2>
+
+  <h2>Outfit Preview</h2>
+
+  <!-- PREVIEW -->
+  <div style="position:relative; width:250px; margin:auto;">
+    <img id="shirt" style="width:100%; position:absolute; top:0;">
+    <img id="pant" style="width:100%; position:absolute; top:150px;">
+  </div>
+
+  <script>
+
+    let cart = JSON.parse(localStorage.getItem("cart")) || [];
+    let total = 0;
+
+    let shirts = [];
+    let pants = [];
+
+    // SHOW ITEMS
+    cart.forEach((item, index) => {
+      total += item.price;
+
+      document.getElementById("cart-items").innerHTML += `
+        <div style="border:1px solid white; margin:10px; padding:10px;">
+          <p>${item.name}</p>
+          <p>₹${item.price}</p>
+          <button onclick="removeItem(${index})">Remove</button>
+        </div>
+      `;
+
+      if (item.category === "shirt") shirts.push(item);
+      if (item.category === "pant") pants.push(item);
+    });
+
+    document.getElementById("total").innerText = "Total: ₹" + total;
+
+    // SHOW SELECT OPTIONS
+    document.getElementById("cart-items").innerHTML += `<h3>Select Shirt</h3>`;
+
+    shirts.forEach(item => {
+      document.getElementById("cart-items").innerHTML += `
+        <img src="${item.image}" width="80" style="cursor:pointer;" onclick="selectShirt('${item.image}')">
+      `;
+    });
+
+    document.getElementById("cart-items").innerHTML += `<h3>Select Pant</h3>`;
+
+    pants.forEach(item => {
+      document.getElementById("cart-items").innerHTML += `
+        <img src="${item.image}" width="80" style="cursor:pointer;" onclick="selectPant('${item.image}')">
+      `;
+    });
+
+    // FUNCTIONS
+    function selectShirt(src) {
+      document.getElementById("shirt").src = src;
+    }
+
+    function selectPant(src) {
+      document.getElementById("pant").src = src;
+    }
+
+    function removeItem(index) {
+      cart.splice(index, 1);
+      localStorage.setItem("cart", JSON.stringify(cart));
+      location.reload();
+    }
+
+  </script>
+
+</body>
+</html>
