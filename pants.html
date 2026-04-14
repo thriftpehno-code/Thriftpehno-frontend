@@ -153,16 +153,43 @@
 
   <!-- SCRIPT -->
   <script>
-    let cartCount = 0;
+  let cart = [];
 
-    const addBtn = document.getElementById("addToCartBtn");
-    const cartBtn = document.getElementById("cartBtn");
+  const addBtn = document.getElementById("addToCartBtn");
+  const cartBtn = document.getElementById("cartBtn");
 
-    addBtn.addEventListener("click", () => {
-      cartCount++;
-      cartBtn.innerText = "Cart (" + cartCount + ") 🛒";
-    });
-  </script>
+  const product = {
+    name: "Diesel Industrial Denim",
+    price: "₹2499",
+    size: "34-35"
+  };
 
+  addBtn.addEventListener("click", () => {
+
+    // prevent duplicate
+    if (cart.length === 0) {
+      cart.push(product);
+      cartBtn.innerText = "Cart (1) 🛒";
+      addBtn.innerText = "Added ✓";
+    } else {
+      alert("Product already added");
+    }
+
+  });
+
+  // show cart details
+  cartBtn.addEventListener("click", () => {
+
+    if (cart.length === 0) {
+      alert("Cart is empty");
+    } else {
+      alert(
+        "Your Cart:\n\n" +
+        cart.map(p => `${p.name} - ${p.price} (Size ${p.size})`).join("\n")
+      );
+    }
+
+  });
+</script>
 </body>
 </html>
