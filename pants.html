@@ -152,13 +152,14 @@
   </div>
 
   <!-- SCRIPT -->
-  <script>
+ <script>
   let cart = [];
 
   const addBtn = document.getElementById("addToCartBtn");
   const cartBtn = document.getElementById("cartBtn");
 
   const product = {
+    id: "diesel-denim-1",
     name: "Diesel Industrial Denim",
     price: "₹2499",
     size: "34-35"
@@ -166,29 +167,43 @@
 
   addBtn.addEventListener("click", () => {
 
-    // prevent duplicate
-    if (cart.length === 0) {
-      cart.push(product);
-      cartBtn.innerText = "Cart (1) 🛒";
-      addBtn.innerText = "Added ✓";
-    } else {
-      alert("Product already added");
+    // check if already added
+    const alreadyAdded = cart.find(item => item.id === product.id);
+
+    if (alreadyAdded) {
+      alert("Already added to cart");
+      return;
     }
+
+    // add product
+    cart.push(product);
+
+    // update cart count
+    cartBtn.innerText = "Cart (" + cart.length + ") 🛒";
+
+    // change button UI
+    addBtn.innerText = "Added ✓";
+    addBtn.style.background = "green";
+    addBtn.style.color = "white";
+    addBtn.style.cursor = "not-allowed";
 
   });
 
-  // show cart details
+  // show cart
   cartBtn.addEventListener("click", () => {
 
     if (cart.length === 0) {
       alert("Cart is empty");
-    } else {
-      alert(
-        "Your Cart:\n\n" +
-        cart.map(p => `${p.name} - ${p.price} (Size ${p.size})`).join("\n")
-      );
+      return;
     }
 
+    let message = "Your Cart:\n\n";
+
+    cart.forEach(item => {
+      message += item.name + " - " + item.price + " (Size " + item.size + ")\n";
+    });
+
+    alert(message);
   });
 </script>
 </body>
