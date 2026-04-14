@@ -2,57 +2,130 @@
 <html>
 <head>
   <title>Pants - Thrift Pehno</title>
+
+  <style>
+    body {
+      margin: 0;
+      background: black;
+      color: white;
+      font-family: Arial, sans-serif;
+    }
+
+    h1 {
+      text-align: center;
+      padding: 30px;
+    }
+
+    .container {
+      max-width: 900px;
+      margin: auto;
+      padding: 20px;
+    }
+
+    .card {
+      border: 1px solid white;
+      padding: 20px;
+    }
+
+    .main-img {
+      width: 100%;
+      max-height: 500px;
+      object-fit: cover;
+    }
+
+    .gallery {
+      display: flex;
+      gap: 10px;
+      overflow-x: auto;
+      margin-top: 20px;
+    }
+
+    .gallery img {
+      height: 100px;
+    }
+
+    .buttons {
+      margin-top: 15px;
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+
+    .buttons a {
+      border: 1px solid white;
+      padding: 8px 15px;
+      color: white;
+      text-decoration: none;
+    }
+
+    .back {
+      text-align: center;
+      margin: 30px;
+    }
+
+    .floating-cart {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      background: white;
+      color: black;
+      padding: 12px 20px;
+      border-radius: 30px;
+      font-weight: bold;
+      cursor: pointer;
+    }
+
+  </style>
+
 </head>
 
-<body style="margin:0; background:black; color:white; font-family:Arial, sans-serif;">
+<body>
 
-  <h1 style="text-align:center; padding:30px;">PANTS COLLECTION</h1>
+  <h1>PANTS COLLECTION</h1>
 
-  <div style="max-width:900px; margin:auto; padding:20px;">
+  <div class="container">
 
-    <!-- PRODUCT CARD -->
-    <div style="border:1px solid white; padding:20px;">
+    <div class="card">
 
       <!-- MAIN IMAGE -->
-      <img src="https://i.postimg.cc/W1J4yxtj/1776084634437-publer-com.jpg" 
-      style="width:100%; max-height:500px; object-fit:cover;">
+      <img class="main-img" src="https://i.postimg.cc/W1J4yxtj/1776084634437-publer-com.jpg">
 
-      <!-- PRODUCT DETAILS -->
+      <!-- DETAILS -->
       <h2>Diesel Industrial Denim</h2>
       <p>Price: ₹2499</p>
       <p>Size: 34-35</p>
 
-      <!-- ADD TO CART -->
-      <button onclick="addToCart()" 
-      style="border:1px solid white; padding:10px 20px; background:black; color:white; cursor:pointer;">
-        Add to Cart
-      </button>
+      <!-- BUTTONS -->
+      <div class="buttons">
 
-      <!-- BUY NOW (RAZORPAY READY) -->
-      <br><br>
-      <a href="#" target="_blank"
-      style="border:1px solid white; padding:10px 20px; color:white; text-decoration:none;">
-        Buy Now
-      </a>
+        <a href="https://wa.me/919370820852?text=Hi%20I%20want%20to%20buy%20Diesel%20Industrial%20Denim%20(Size%2034-35)%20for%20₹2499.%20https://www.instagram.com/p/DVJdJx4DLOg/">
+          Buy on WhatsApp
+        </a>
 
-      <!-- IMAGE GALLERY -->
-      <div style="display:flex; gap:10px; overflow-x:auto; margin-top:20px;">
+        <a href="https://www.instagram.com/p/DVJdJx4DLOg/" target="_blank">
+          View on Instagram
+        </a>
 
-        <img src="https://i.postimg.cc/4Nyy6Ygm/1776084635463-publer-com.jpg" style="height:120px;">
-        <img src="https://i.postimg.cc/xTZCt9f5/1776084636438-publer-com.jpg" style="height:120px;">
-        <img src="https://i.postimg.cc/Wby3XsNY/1776084637448-publer-com.jpg" style="height:120px;">
-        <img src="https://i.postimg.cc/65qqr8X6/1776084638440-publer-com.jpg" style="height:120px;">
-        <img src="https://i.postimg.cc/J7PtHb9t/1776084639442-publer-com.jpg" style="height:120px;">
-        <img src="https://i.postimg.cc/XNQXBwT4/1776084640432-publer-com.jpg" style="height:120px;">
-        <img src="https://i.postimg.cc/nV0M9v6x/1776084641439-publer-com.jpg" style="height:120px;">
-        <img src="https://i.postimg.cc/dQ4DZ8zM/1776084643173-publer-com.jpg" style="height:120px;">
-        <img src="https://i.postimg.cc/1XCtxQpf/1776084644166-publer-com.jpg" style="height:120px;">
-        <img src="https://i.postimg.cc/NFfMPMrY/1776084645176-publer-com.jpg" style="height:120px;">
-        <img src="https://i.postimg.cc/MHKTrTft/1776084646178-publer-com.jpg" style="height:120px;">
-        <img src="https://i.postimg.cc/nz1rk7rT/1776084647167-publer-com.jpg" style="height:120px;">
-        <img src="https://i.postimg.cc/tTzJ5PJT/1776084647429-publer-com.jpg" style="height:120px;">
-        <img src="https://i.postimg.cc/d193Bd3Q/1776084648430-publer-com.jpg" style="height:120px;">
-        <img src="https://i.postimg.cc/B6CbgDbc/1776084649434-publer-com.jpg" style="height:120px;">
+      </div>
+
+      <!-- GALLERY -->
+      <div class="gallery">
+
+        <img src="https://i.postimg.cc/4Nyy6Ygm/1776084635463-publer-com.jpg">
+        <img src="https://i.postimg.cc/xTZCt9f5/1776084636438-publer-com.jpg">
+        <img src="https://i.postimg.cc/Wby3XsNY/1776084637448-publer-com.jpg">
+        <img src="https://i.postimg.cc/65qqr8X6/1776084638440-publer-com.jpg">
+        <img src="https://i.postimg.cc/J7PtHb9t/1776084639442-publer-com.jpg">
+        <img src="https://i.postimg.cc/XNQXBwT4/1776084640432-publer-com.jpg">
+        <img src="https://i.postimg.cc/nV0M9v6x/1776084641439-publer-com.jpg">
+        <img src="https://i.postimg.cc/dQ4DZ8zM/1776084643173-publer-com.jpg">
+        <img src="https://i.postimg.cc/1XCtxQpf/1776084644166-publer-com.jpg">
+        <img src="https://i.postimg.cc/NFfMPMrY/1776084645176-publer-com.jpg">
+        <img src="https://i.postimg.cc/MHKTrTft/1776084646178-publer-com.jpg">
+        <img src="https://i.postimg.cc/nz1rk7rT/1776084647167-publer-com.jpg">
+        <img src="https://i.postimg.cc/tTzJ5PJT/1776084647429-publer-com.jpg">
+        <img src="https://i.postimg.cc/d193Bd3Q/1776084648430-publer-com.jpg">
+        <img src="https://i.postimg.cc/B6CbgDbc/1776084649434-publer-com.jpg">
 
       </div>
 
@@ -60,45 +133,14 @@
 
   </div>
 
-  <a href="cart.html" 
-style="
-position:fixed;
-bottom:20px;
-right:20px;
-background:white;
-color:black;
-padding:12px 18px;
-border-radius:30px;
-text-decoration:none;
-font-weight:bold;
-">
-🛒 Cart
-</a>
-  </div>
-
-  <!-- BACK -->
-  <div style="text-align:center; margin:30px;">
+  <div class="back">
     <a href="index.html" style="color:white;">← Back to Home</a>
   </div>
 
-  <!-- SCRIPT -->
-  <script>
-    function addToCart() {
-      let cart = JSON.parse(localStorage.getItem("cart")) || [];
-
-      cart.push({
-        name: "Diesel Industrial Denim",
-        price: 2499,
-        size: "34-35",
-        category: "pant",
-        image: "https://i.postimg.cc/W1J4yxtj/1776084634437-publer-com.jpg"
-      });
-
-      localStorage.setItem("cart", JSON.stringify(cart));
-
-      alert("Added to cart");
-    }
-  </script>
+  <!-- FLOATING CART -->
+  <div class="floating-cart">
+    Cart 🛒
+  </div>
 
 </body>
 </html>
