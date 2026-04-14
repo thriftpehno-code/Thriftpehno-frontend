@@ -27,27 +27,41 @@
   </div>
 
   <!-- PRODUCT GRID -->
-  <div style="padding:20px; display:grid; grid-template-columns: repeat(2, 1fr); gap:15px;">
+  <div id="productGrid" style="padding:20px; display:grid; grid-template-columns: repeat(2, 1fr); gap:15px;"></div>
 
-    <!-- PRODUCT 1 -->
-    <a href="pants.html?id=1" style="text-decoration:none; color:white;">
-      <div>
-        <img src="https://i.postimg.cc/W1J4yxtj/1776084634437-publer-com.jpg" style="width:100%;">
-        <p>Diesel Industrial Denim</p>
-        <p>₹2499</p>
-      </div>
-    </a>
+  <!-- SCRIPT -->
+  <script>
 
-    <!-- PRODUCT 2 -->
-    <a href="pants.html?id=2" style="text-decoration:none; color:white;">
-      <div>
-        <img src="https://i.postimg.cc/HxtS95MK/1776176893297-publer-com.jpg" style="width:100%;">
-        <p>Premium Pioneer Grey Denim</p>
-        <p>₹599</p>
-      </div>
-    </a>
+  const products = {
+    1: {
+      name: "Diesel Industrial Denim",
+      price: "₹2499",
+      image: "https://i.postimg.cc/W1J4yxtj/1776084634437-publer-com.jpg"
+    },
+    2: {
+      name: "Premium Pioneer Grey Denim",
+      price: "₹599",
+      image: "https://i.postimg.cc/HxtS95MK/1776176893297-publer-com.jpg"
+    }
+  };
 
-  </div>
+  const grid = document.getElementById("productGrid");
+
+  for (let id in products) {
+    const product = products[id];
+
+    grid.innerHTML += `
+      <a href="pants.html?id=${id}" style="text-decoration:none; color:white;">
+        <div>
+          <img src="${product.image}" style="width:100%;">
+          <p>${product.name}</p>
+          <p>${product.price}</p>
+        </div>
+      </a>
+    `;
+  }
+
+  </script>
 
 </body>
 </html>
