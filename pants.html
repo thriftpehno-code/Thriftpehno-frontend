@@ -200,83 +200,87 @@
   </div>
 
   <!-- SCRIPT -->
- <<script>
-  let cart = [];
+<script>
+  window.onload = function () {
 
-  const addBtn = document.getElementById("addToCartBtn");
-  const cartBtn = document.getElementById("cartBtn");
+    let cart = [];
 
-  const product = {
-    id: "diesel-denim-1",
-    name: "Diesel Industrial Denim",
-    price: "₹2499",
-    size: "34-35"
-  };
+    const addBtn = document.getElementById("addToCartBtn");
+    const cartBtn = document.getElementById("cartBtn");
 
-  // IMAGE ARRAY
-  const images = [
-    "https://i.postimg.cc/W1J4yxtj/1776084634437-publer-com.jpg",
-    "https://i.postimg.cc/4Nyy6Ygm/1776084635463-publer-com.jpg",
-    "https://i.postimg.cc/xTZCt9f5/1776084636438-publer-com.jpg",
-    "https://i.postimg.cc/Wby3XsNY/1776084637448-publer-com.jpg",
-    "https://i.postimg.cc/65qqr8X6/1776084638440-publer-com.jpg"
-  ];
+    const product = {
+      id: "diesel-denim-1",
+      name: "Diesel Industrial Denim",
+      price: "₹2499",
+      size: "34-35"
+    };
 
-  let currentIndex = 0;
+    // IMAGE ARRAY
+    const images = [
+      "https://i.postimg.cc/W1J4yxtj/1776084634437-publer-com.jpg",
+      "https://i.postimg.cc/4Nyy6Ygm/1776084635463-publer-com.jpg",
+      "https://i.postimg.cc/xTZCt9f5/1776084636438-publer-com.jpg",
+      "https://i.postimg.cc/Wby3XsNY/1776084637448-publer-com.jpg",
+      "https://i.postimg.cc/65qqr8X6/1776084638440-publer-com.jpg"
+    ];
 
-  const mainImage = document.getElementById("mainImage");
-  const prevBtn = document.getElementById("prevBtn");
-  const nextBtn = document.getElementById("nextBtn");
+    let currentIndex = 0;
 
-  // BUTTON CONTROLS
-  nextBtn.addEventListener("click", () => {
-    currentIndex = (currentIndex + 1) % images.length;
-    mainImage.src = images[currentIndex];
-  });
+    const mainImage = document.getElementById("mainImage");
+    const prevBtn = document.getElementById("prevBtn");
+    const nextBtn = document.getElementById("nextBtn");
 
-  prevBtn.addEventListener("click", () => {
-    currentIndex = (currentIndex - 1 + images.length) % images.length;
-    mainImage.src = images[currentIndex];
-  });
-
-  // CART LOGIC
-  addBtn.addEventListener("click", () => {
-
-    const alreadyAdded = cart.find(item => item.id === product.id);
-
-    if (alreadyAdded) {
-      alert("Already added to cart");
-      return;
-    }
-
-    cart.push(product);
-
-    cartBtn.innerText = "Cart (" + cart.length + ") 🛒";
-
-    addBtn.innerText = "Added ✓";
-    addBtn.style.background = "green";
-    addBtn.style.color = "white";
-    addBtn.style.cursor = "not-allowed";
-
-  });
-
-  // SHOW CART
-  cartBtn.addEventListener("click", () => {
-
-    if (cart.length === 0) {
-      alert("Cart is empty");
-      return;
-    }
-
-    let message = "Your Cart:\n\n";
-
-    cart.forEach(item => {
-      message += item.name + " - " + item.price + " (Size " + item.size + ")\n";
+    // SLIDER
+    nextBtn.addEventListener("click", () => {
+      currentIndex = (currentIndex + 1) % images.length;
+      mainImage.src = images[currentIndex];
     });
 
-    alert(message);
-  });
+    prevBtn.addEventListener("click", () => {
+      currentIndex = (currentIndex - 1 + images.length) % images.length;
+      mainImage.src = images[currentIndex];
+    });
 
+    // ADD TO CART
+    addBtn.addEventListener("click", () => {
+
+      const alreadyAdded = cart.find(item => item.id === product.id);
+
+      if (alreadyAdded) {
+        alert("Already added to cart");
+        return;
+      }
+
+      cart.push(product);
+
+      cartBtn.innerText = "Cart (" + cart.length + ") 🛒";
+
+      addBtn.innerText = "Added ✓";
+      addBtn.style.background = "green";
+      addBtn.style.color = "white";
+      addBtn.style.cursor = "not-allowed";
+
+    });
+
+    // VIEW CART
+    cartBtn.addEventListener("click", () => {
+
+      if (cart.length === 0) {
+        alert("Cart is empty");
+        return;
+      }
+
+      let message = "Your Cart:\n\n";
+
+      cart.forEach(item => {
+        message += item.name + " - " + item.price + " (Size " + item.size + ")\n";
+      });
+
+      alert(message);
+
+    });
+
+  };
 </script>
 </body>
 </html>
