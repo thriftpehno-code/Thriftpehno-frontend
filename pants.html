@@ -199,7 +199,7 @@
   </div>
 
   <!-- SCRIPT -->
- <script>
+ <<script>
   let cart = [];
 
   const addBtn = document.getElementById("addToCartBtn");
@@ -212,9 +212,35 @@
     size: "34-35"
   };
 
+  // IMAGE ARRAY
+  const images = [
+    "https://i.postimg.cc/W1J4yxtj/1776084634437-publer-com.jpg",
+    "https://i.postimg.cc/4Nyy6Ygm/1776084635463-publer-com.jpg",
+    "https://i.postimg.cc/xTZCt9f5/1776084636438-publer-com.jpg",
+    "https://i.postimg.cc/Wby3XsNY/1776084637448-publer-com.jpg",
+    "https://i.postimg.cc/65qqr8X6/1776084638440-publer-com.jpg"
+  ];
+
+  let currentIndex = 0;
+
+  const mainImage = document.getElementById("mainImage");
+  const prevBtn = document.getElementById("prevBtn");
+  const nextBtn = document.getElementById("nextBtn");
+
+  // BUTTON CONTROLS
+  nextBtn.addEventListener("click", () => {
+    currentIndex = (currentIndex + 1) % images.length;
+    mainImage.src = images[currentIndex];
+  });
+
+  prevBtn.addEventListener("click", () => {
+    currentIndex = (currentIndex - 1 + images.length) % images.length;
+    mainImage.src = images[currentIndex];
+  });
+
+  // CART LOGIC
   addBtn.addEventListener("click", () => {
 
-    // check if already added
     const alreadyAdded = cart.find(item => item.id === product.id);
 
     if (alreadyAdded) {
@@ -222,13 +248,10 @@
       return;
     }
 
-    // add product
     cart.push(product);
 
-    // update cart count
     cartBtn.innerText = "Cart (" + cart.length + ") 🛒";
 
-    // change button UI
     addBtn.innerText = "Added ✓";
     addBtn.style.background = "green";
     addBtn.style.color = "white";
@@ -236,7 +259,7 @@
 
   });
 
-  // show cart
+  // SHOW CART
   cartBtn.addEventListener("click", () => {
 
     if (cart.length === 0) {
@@ -252,6 +275,7 @@
 
     alert(message);
   });
+
 </script>
 </body>
 </html>
