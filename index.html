@@ -29,39 +29,45 @@
   <!-- PRODUCT GRID -->
   <div id="productGrid" style="padding:20px; display:grid; grid-template-columns: repeat(2, 1fr); gap:15px;"></div>
 
-  <!-- SCRIPT -->
   <script>
 
-  const products = {
-    1: {
-      name: "Diesel Industrial Denim",
-      price: "₹2499",
-      image: "https://i.postimg.cc/W1J4yxtj/1776084634437-publer-com.jpg"
-    },
-    2: {
-      name: "Premium Pioneer Grey Denim",
-      price: "₹599",
-      image: "https://i.postimg.cc/HxtS95MK/1776176893297-publer-com.jpg"
+const SUPABASE_URL = "https://tyvbwwccwcgkafueroui.supabase.co";
+const SUPABASE_KEY = "sb_publishable_tKeUN6N774CqR8YucuDwSw_U35gepAu";
+
+async function loadProducts() {
+
+  const response = await fetch(`${SUPABASE_URL}/rest/v1/products`, {
+    headers: {
+      apikey: SUPABASE_KEY,
+      Authorization: `Bearer ${SUPABASE_KEY}`
     }
-  };
+  });
+
+  const data = await response.json();
 
   const grid = document.getElementById("productGrid");
 
-  for (let id in products) {
-    const product = products[id];
+  grid.innerHTML = "";
+
+  data.forEach(product => {
 
     grid.innerHTML += `
-      <a href="pants.html?id=${id}" style="text-decoration:none; color:white;">
+      <a href="pants.html?id=${product.id}" style="text-decoration:none; color:white;">
         <div>
-          <img src="${product.image}" style="width:100%;">
+          <img src="${product.images}" style="width:100%;">
           <p>${product.name}</p>
           <p>${product.price}</p>
         </div>
       </a>
     `;
-  }
 
-  </script>
+  });
+
+}
+
+loadProducts();
+
+</script>
 
 </body>
 </html>
