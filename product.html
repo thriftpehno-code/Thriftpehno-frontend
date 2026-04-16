@@ -185,107 +185,34 @@
   <!-- SCRIPT -->
 <script>
 
-document.addEventListener("DOMContentLoaded", function () {
+const SUPABASE_URL = "https://tyvbwwccwcgkafueroui.supabase.co";
+const SUPABASE_KEY = "sb_publishable_tKeUN6N774CqR8YucuDwSw_U35gepAu";
 
-  // 🧠 PRODUCT DATABASE
-  const products = {
-    1: {
-      id: "diesel-denim-1",
-      name: "Diesel Industrial Denim",
-      price: "₹2499",
-      size: "34-35",
-      images: [
-        "https://i.postimg.cc/W1J4yxtj/1776084634437-publer-com.jpg",
-        "https://i.postimg.cc/4Nyy6Ygm/1776084635463-publer-com.jpg",
-        "https://i.postimg.cc/xTZCt9f5/1776084636438-publer-com.jpg"
-      ]
-    },
+async function loadProduct() {
 
-    2: {
-      id: "Pioneer-denim-1",
-      name: " Premium Pioneer grey denim",
-      price: "₹599",
-      size: "37-38",
-      images: [
-        "https://i.postimg.cc/HxtS95MK/1776176893297-publer-com.jpg",
-        "https://i.postimg.cc/k4C1Sw2f/1776176894291-publer-com.jpg",
-        "https://i.postimg.cc/V6wGt4J6/1776176895293-publer-com.jpg",
-        "https://i.postimg.cc/cJwk6PLg/1776176896295-publer-com.jpg",
-        "https://i.postimg.cc/HLXvjFks/1776176897294-publer-com.jpg",
-        "https://i.postimg.cc/fbmqk1TP/1776176898297-publer-com.jpg",
-        "https://i.postimg.cc/NjWPsQYS/1776176899296-publer-com.jpg",
-        "https://i.postimg.cc/CxW6hwYQ/1776176900297-publer-com.jpg",
-        "https://i.postimg.cc/pLg1WPx7/1776176901296-publer-com.jpg",
-        "https://i.postimg.cc/RZjbSv9Y/1776176902294-publer-com.jpg"
-      ]
-    }
-  };
-
-  // 🎯 GET PRODUCT FROM URL
   const params = new URLSearchParams(window.location.search);
-  const productId = params.get("id") || "1";
-  const product = products[productId];
+  const productId = params.get("id");
 
-  // 🎯 SET TEXT
+  const response = await fetch(`${SUPABASE_URL}/rest/v1/products?id=eq.${productId}`, {
+    headers: {
+      apikey: SUPABASE_KEY,
+      Authorization: `Bearer ${SUPABASE_KEY}`
+    }
+  });
+
+  const data = await response.json();
+  const product = data[0];
+
+  // SET DATA
   document.getElementById("productName").innerText = product.name;
   document.getElementById("productPrice").innerText = "Price: " + product.price;
   document.getElementById("productSize").innerText = "Size: " + product.size;
 
-  // 🎯 IMAGE
-  let currentIndex = 0;
-  const mainImage = document.getElementById("mainImage");
+  document.getElementById("mainImage").src = product.images;
 
-  mainImage.src = product.images[0];
+}
 
-  const prevBtn = document.getElementById("prevBtn");
-  const nextBtn = document.getElementById("nextBtn");
-
-  nextBtn.addEventListener("click", () => {
-    currentIndex = (currentIndex + 1) % product.images.length;
-    mainImage.src = product.images[currentIndex];
-  });
-
-  prevBtn.addEventListener("click", () => {
-    currentIndex = (currentIndex - 1 + product.images.length) % product.images.length;
-    mainImage.src = product.images[currentIndex];
-  });
-
-  // 🛒 CART (same as before)
-  let cart = JSON.parse(localStorage.getItem("cart")) || [];
-
-  const addBtn = document.getElementById("addToCartBtn");
-  const cartBtn = document.getElementById("cartBtn");
-
-  cartBtn.innerText = "Cart (" + cart.length + ") 🛒";
-
-  const alreadyAdded = cart.find(item => item.id === product.id);
-
-  if (alreadyAdded) {
-    addBtn.innerText = "Added ✓";
-    addBtn.style.background = "green";
-    addBtn.style.color = "white";
-  }
-
-  addBtn.addEventListener("click", () => {
-
-    const exists = cart.find(item => item.id === product.id);
-
-    if (exists) {
-      alert("Already added");
-      return;
-    }
-
-    cart.push(product);
-    localStorage.setItem("cart", JSON.stringify(cart));
-
-    cartBtn.innerText = "Cart (" + cart.length + ") 🛒";
-
-    addBtn.innerText = "Added ✓";
-    addBtn.style.background = "green";
-    addBtn.style.color = "white";
-  });
-
-});
+loadProduct();
 
 </script>
 </body>
