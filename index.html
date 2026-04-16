@@ -17,7 +17,7 @@
   
   <div style="display:flex; justify-content:center; gap:30px; flex-wrap:wrap; padding:20px;">
 
-    <a href="pants.html" style="border:1px solid white; padding:20px; color:white; text-decoration:none;">Pants</a>
+    <a href="product.html" style="border:1px solid white; padding:20px; color:white; text-decoration:none;">product</a>
     <a href="#" style="border:1px solid white; padding:20px; color:white; text-decoration:none;">Shirts</a>
     <a href="#" style="border:1px solid white; padding:20px; color:white; text-decoration:none;">T-Shirts</a>
     <a href="#" style="border:1px solid white; padding:20px; color:white; text-decoration:none;">Activewear</a>
@@ -52,7 +52,7 @@ async function loadProducts() {
   data.forEach(product => {
 
     grid.innerHTML += `
-      <a href="pants.html?id=${product.id}" style="text-decoration:none; color:white;">
+      <a href="product.html?id=${product.id}" style="text-decoration:none; color:white;">
         <div>
           <img src="${product.images}" style="width:100%;">
           <p>${product.name}</p>
