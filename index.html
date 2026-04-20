@@ -53,13 +53,6 @@ const response = await fetch(url, {
     Authorization: `Bearer ${SUPABASE_KEY}`
   }
 });
-  {
-  headers: {
-    apikey: SUPABASE_KEY,
-    Authorization: `Bearer ${SUPABASE_KEY}`
-  }
-});
-
   const data = await response.json();
 
   const grid = document.getElementById("productGrid");
