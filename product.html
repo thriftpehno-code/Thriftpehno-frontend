@@ -192,7 +192,10 @@ async function loadProduct() {
 
   const params = new URLSearchParams(window.location.search);
   const productId = params.get("id");
-
+if (!productId) {
+  window.location.href = "index.html";
+  return;
+}
   const response = await fetch(`${SUPABASE_URL}/rest/v1/products?id=eq.${productId}`, {
     headers: {
       apikey: SUPABASE_KEY,
