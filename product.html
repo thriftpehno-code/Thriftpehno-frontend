@@ -158,16 +158,7 @@
 
       </div>
 
-      <!-- GALLERY -->
-      <div class="gallery">
-
-        <img src="https://i.postimg.cc/4Nyy6Ygm/1776084635463-publer-com.jpg">
-        <img src="https://i.postimg.cc/xTZCt9f5/1776084636438-publer-com.jpg">
-        <img src="https://i.postimg.cc/Wby3XsNY/1776084637448-publer-com.jpg">
-        <img src="https://i.postimg.cc/65qqr8X6/1776084638440-publer-com.jpg">
-        <img src="https://i.postimg.cc/J7PtHb9t/1776084639442-publer-com.jpg">
-
-      </div>
+    <div class="gallery"></div>
 
     </div>
 
@@ -217,17 +208,46 @@ const product = data[0];
   document.getElementById("productPrice").innerText = "Price: " + product.price;
   document.getElementById("productSize").innerText = "Size: " + product.size;
 
- if (product.images) {
-  if (product.images.startsWith("[")) {
-    const imgs = JSON.parse(product.images);
-    document.getElementById("mainImage").src = imgs[0];
-  } else {
-    document.getElementById("mainImage").src = product.images;
-  }
+let images = [];
+
+if (product.images) {
+  images = JSON.parse(product.images);
 }
 
-}
+let currentIndex = 0;
 
+const mainImage = document.getElementById("mainImage");
+
+// show first image
+mainImage.src = images[0];
+
+// NEXT BUTTON →
+document.getElementById("nextBtn").addEventListener("click", () => {
+  currentIndex = (currentIndex + 1) % images.length;
+  mainImage.src = images[currentIndex];
+});
+
+// PREVIOUS BUTTON ←
+document.getElementById("prevBtn").addEventListener("click", () => {
+  currentIndex = (currentIndex - 1 + images.length) % images.length;
+  mainImage.src = images[currentIndex];
+});
+}
+const gallery = document.querySelector(".gallery");
+gallery.innerHTML = "";
+
+images.forEach((img, index) => {
+  const imageEl = document.createElement("img");
+  imageEl.src = img;
+
+  imageEl.addEventListener("click", () => {
+    currentIndex = index;
+    mainImage.src = images[currentIndex];
+  });
+
+  gallery.appendChild(imageEl);
+});
+ 
 loadProduct();
 
 </script>
