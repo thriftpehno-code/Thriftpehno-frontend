@@ -210,14 +210,13 @@ const product = data[0];
 
 let images = [];
 
-let images = [];
-
 if (product.images) {
-  if (product.images.startsWith("[")) {
-    images = JSON.parse(product.images);
-  } else {
+  try {
+    images = JSON.parse(product.images.trim());
+  } catch (e) {
     images = [product.images];
   }
+}
 }
 let currentIndex = 0;
 
