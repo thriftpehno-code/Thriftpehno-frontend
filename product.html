@@ -217,13 +217,15 @@ if (product.images) {
     images = [product.images];
   }
 }
-}
+
 let currentIndex = 0;
 
 const mainImage = document.getElementById("mainImage");
 
 // show first image
-mainImage.src = images[0];
+if (images.length > 0) {
+  mainImage.src = images[0];
+}
 
 // NEXT BUTTON →
 document.getElementById("nextBtn").addEventListener("click", () => {
@@ -236,7 +238,9 @@ document.getElementById("prevBtn").addEventListener("click", () => {
   currentIndex = (currentIndex - 1 + images.length) % images.length;
   mainImage.src = images[currentIndex];
 });
- const gallery = document.querySelector(".gallery");
+
+// GALLERY
+const gallery = document.querySelector(".gallery");
 gallery.innerHTML = "";
 
 images.forEach((img, index) => {
@@ -250,9 +254,7 @@ images.forEach((img, index) => {
 
   gallery.appendChild(imageEl);
 });
-}
 
- 
 loadProduct();
 
 </script>
