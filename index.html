@@ -40,10 +40,6 @@ const category = params.get("category")?.trim().toLowerCase();
 
 let url = `${SUPABASE_URL}/rest/v1/products`;
 
-if (category) {
-  url += `?category=eq.${category}`;
-}
-
 const response = await fetch(url, {
   headers: {
     apikey: SUPABASE_KEY,
@@ -63,7 +59,7 @@ const response = await fetch(url, {
    let imgSrc = "";
 
   try {
-    if (product.images && product.images.startsWith("[")) {
+  if (product.images && product.images.trim().startsWith("["))
       imgSrc = JSON.parse(product.images)[0];
     } else {
       imgSrc = product.images;
