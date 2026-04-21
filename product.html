@@ -210,10 +210,15 @@ const product = data[0];
 
 let images = [];
 
-if (product.images) {
-  images = JSON.parse(product.images);
-}
+let images = [];
 
+if (product.images) {
+  if (product.images.startsWith("[")) {
+    images = JSON.parse(product.images);
+  } else {
+    images = [product.images];
+  }
+}
 let currentIndex = 0;
 
 const mainImage = document.getElementById("mainImage");
@@ -232,8 +237,7 @@ document.getElementById("prevBtn").addEventListener("click", () => {
   currentIndex = (currentIndex - 1 + images.length) % images.length;
   mainImage.src = images[currentIndex];
 });
-}
-const gallery = document.querySelector(".gallery");
+ const gallery = document.querySelector(".gallery");
 gallery.innerHTML = "";
 
 images.forEach((img, index) => {
@@ -247,6 +251,8 @@ images.forEach((img, index) => {
 
   gallery.appendChild(imageEl);
 });
+}
+
  
 loadProduct();
 
