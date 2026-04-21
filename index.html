@@ -58,17 +58,30 @@ const response = await fetch(url, {
 
   data.forEach(product => {
 
-    grid.innerHTML += `
-      <a href="product.html?id=${product.id}" style="text-decoration:none; color:white;">
-        <div>
-          <img src="${JSON.parse(product.images)[0]}" style="width:100%;">
-          <p>${product.name}</p>
-          <p>${product.price}</p>
-        </div>
-      </a>
-    `;
+  let imgSrc = "";
 
-  });
+  try {
+    if (product.images && product.images.startsWith("[")) {
+      imgSrc = JSON.parse(product.images)[0];
+    } else {
+      imgSrc = product.images;
+    }
+  } catch (e) {
+    console.error("Bad JSON for product:", product.id, product.images);
+    imgSrc = "";
+  }
+
+  grid.innerHTML += `
+    <a href="product.html?id=${product.id}" style="text-decoration:none; color:white;">
+      <div>
+        <img src="${imgSrc}" style="width:100%;">
+        <p>${product.name}</p>
+        <p>${product.price}</p>
+      </div>
+    </a>
+  `;
+
+});
 
 }
 
