@@ -61,7 +61,7 @@ const response = await fetch(url, {
     grid.innerHTML += `
       <a href="product.html?id=${product.id}" style="text-decoration:none; color:white;">
         <div>
-          <img src="${product.images}" style="width:100%;">
+          <img src="${JSON.parse(product.images)[0]}" style="width:100%;">
           <p>${product.name}</p>
           <p>${product.price}</p>
         </div>
