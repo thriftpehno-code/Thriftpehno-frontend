@@ -59,7 +59,7 @@ const response = await fetch(url, {
    let imgSrc = "";
 
   try {
-  if (product.images && product.images.trim().startsWith("["))
+ if (product.images && product.images.trim().startsWith("["))
       imgSrc = JSON.parse(product.images)[0];
     } else {
       imgSrc = product.images;
