@@ -2,28 +2,34 @@
 <html>
 <head>
   <title>Admin Panel</title>
+
+  <style>
+    body {
+      background: black;
+      color: white;
+      font-family: Arial;
+      padding: 20px;
+    }
+
+    .admin-btn {
+      position: fixed;
+      top: 20px;
+      right: 20px;
+      border: 1px solid white;
+      padding: 8px 15px;
+      color: white;
+      text-decoration: none;
+      font-size: 12px;
+      z-index: 999;
+    }
+  </style>
+
 </head>
 
-<body style="background:black; color:white; font-family:Arial; padding:20px;">
+<body>
 
-<a href="admin.html" class="admin-btn">Admin</a>
-  
 <h1>Admin Panel</h1>
-  <style>
-.admin-btn {
-  position: fixed;
-  top: 20px;
-  right: 20px;
-  border: 1px solid white;
-  padding: 8px 15px;
-  color: white;
-  text-decoration: none;
-  font-size: 12px;
-  z-index: 999;
-}
-</style>
 
-  
 <input id="password" type="password" placeholder="Enter password"><br><br>
 
 <div id="adminContent" style="display:none;">
@@ -41,7 +47,7 @@
 
 <script>
 
-const ADMIN_PASSWORD = "1234"; // change later
+const ADMIN_PASSWORD = "1234";
 
 document.getElementById("password").addEventListener("input", (e) => {
   if (e.target.value === ADMIN_PASSWORD) {
