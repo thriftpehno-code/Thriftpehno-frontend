@@ -9,20 +9,6 @@
 <a href="admin.html" class="admin-btn">Admin</a>
   
 <h1>Admin Panel</h1>
-
-<input id="password" type="password" placeholder="Enter password"><br><br>
-
-<div id="adminContent" style="display:none;">
-
-  <input id="name" placeholder="Product Name"><br><br>
-  <input id="price" placeholder="Price"><br><br>
-  <input id="size" placeholder="Size"><br><br>
-  <input id="category" placeholder="Category"><br><br>
-
-  <textarea id="images" placeholder='Paste image JSON here'></textarea><br><br>
-
-  <button onclick="addProduct()">Add Product</button>
-
   <style>
 .admin-btn {
   position: fixed;
@@ -36,7 +22,21 @@
   z-index: 999;
 }
 </style>
+
   
+<input id="password" type="password" placeholder="Enter password"><br><br>
+
+<div id="adminContent" style="display:none;">
+
+  <input id="name" placeholder="Product Name"><br><br>
+  <input id="price" placeholder="Price"><br><br>
+  <input id="size" placeholder="Size"><br><br>
+  <input id="category" placeholder="Category"><br><br>
+
+  <textarea id="images" placeholder='Paste image JSON here'></textarea><br><br>
+
+  <button onclick="addProduct()">Add Product</button>
+
 </div>
 
 <script>
