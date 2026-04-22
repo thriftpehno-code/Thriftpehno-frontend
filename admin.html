@@ -115,8 +115,8 @@ const response = await fetch(`${SUPABASE_URL}/rest/v1/products`, {
     body: JSON.stringify({
   name,
   price: priceNumber,
-  size: size.trim(),
-  category: category.trim().toLowerCase(),
+  size,
+  category: category.toLowerCase(),
   images
 })
   });
@@ -131,6 +131,8 @@ const response = await fetch(`${SUPABASE_URL}/rest/v1/products`, {
   document.getElementById("category").value = "";
   document.getElementById("images").value = "";
 
+   document.getElementById("name").focus();
+    
 } else {
   alert("Error adding product");
 }
