@@ -70,13 +70,13 @@ const btn = document.getElementById("addBtn"); // 👈 get button
   
 const name = document.getElementById("name").value.trim();
 const price = document.getElementById("price").value.trim();
-const size = document.getElementById("size").value;
-const category = document.getElementById("category").value;
+const size = document.getElementById("size").value.trim();
+const category = document.getElementById("category").value.trim();
 let imagesInput = document.getElementById("images").value;
 
 // VALIDATION (all important fields)
-if (!name || !price || !category || !imagesInput) {
-  alert("Fill all fields properly");
+if (!name || !price || !category) {
+  alert("Please fill name, price, and category");
   return;
 }
 
@@ -93,6 +93,11 @@ let imagesArray = imagesInput
   .split("\n")
   .map(img => img.trim())
   .filter(img => img !== "");
+
+  if (imagesArray.length === 0) {
+  alert("Please add at least one image");
+  return;
+}
 
 const images = JSON.stringify(imagesArray);
 
