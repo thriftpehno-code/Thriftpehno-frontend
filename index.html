@@ -58,16 +58,16 @@ const response = await fetch(url, {
 }
    let imgSrc = "";
 
-  try {
- if (product.images && product.images.trim().startsWith("["))
-      imgSrc = JSON.parse(product.images)[0];
-    } else {
-      imgSrc = product.images;
-    }
-  } catch (e) {
-    console.error("Bad JSON for product:", product.id, product.images);
-    imgSrc = "";
+ try {
+  if (product.images && product.images.trim().startsWith("[")) {
+    imgSrc = JSON.parse(product.images)[0];
+  } else {
+    imgSrc = product.images;
   }
+} catch (e) {
+  console.error("Bad JSON for product:", product.id, product.images);
+  imgSrc = "";
+}
 
   grid.innerHTML += `
     <a href="product.html?id=${product.id}" style="text-decoration:none; color:white;">
