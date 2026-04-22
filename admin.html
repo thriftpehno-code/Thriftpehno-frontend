@@ -22,6 +22,12 @@
       font-size: 12px;
       z-index: 999;
     }
+     input, textarea {
+    display: block;
+    margin-bottom: 15px;
+    width: 300px;
+    padding: 8px;
+  }
   </style>
 
 </head>
@@ -34,12 +40,12 @@
 
 <div id="adminContent" style="display:none;">
 
-  <input id="name" placeholder="Product Name"><br><br>
-  <input id="price" placeholder="Price"><br><br>
-  <input id="size" placeholder="Size"><br><br>
-  <input id="category" placeholder="Category"><br><br>
+<input id="name" placeholder="Product Name">
+<input id="price" placeholder="Price">
+<input id="size" placeholder="Size">
+<input id="category" placeholder="Category">
 
-  <textarea id="images" placeholder='Paste image JSON here'></textarea><br><br>
+<textarea id="images" placeholder="Paste one image link per line"></textarea>
 
   <button onclick="addProduct()">Add Product</button>
 
@@ -86,19 +92,27 @@ const images = JSON.stringify(imagesArray);
       Authorization: `Bearer ${SUPABASE_KEY}`
     },
     body: JSON.stringify({
-      name,
-      price,
-      size,
-      category,
-      images
-    })
+  name,
+  price,
+  size: size.trim(),
+  category: category.trim().toLowerCase(),
+  images
+})
   });
 
   if (response.ok) {
-    alert("Product added!");
-  } else {
-    alert("Error adding product");
-  }
+  alert("Product added!");
+
+  // ✅ CLEAR FORM HERE
+  document.getElementById("name").value = "";
+  document.getElementById("price").value = "";
+  document.getElementById("size").value = "";
+  document.getElementById("category").value = "";
+  document.getElementById("images").value = "";
+
+} else {
+  alert("Error adding product");
+}
 }
 
 </script>
