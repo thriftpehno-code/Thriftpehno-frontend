@@ -36,7 +36,7 @@
 
 <h1>Admin Panel</h1>
 
-<input id="password" type="password" placeholder="Enter password"><br><br>
+<input id="password" type="password" placeholder="Enter password" style="margin-bottom:15px;">
 
 <div id="adminContent" style="display:none;">
 
@@ -47,7 +47,7 @@
 
 <textarea id="images" placeholder="Paste one image link per line"></textarea>
 
- <button onclick="addProduct()" style="margin-top:10px;">Add Product</button>
+ <button id="addBtn" onclick="addProduct()" style="margin-top:10px;">Add Product</button>
 
 </div>
 
@@ -66,7 +66,9 @@ const SUPABASE_KEY = "sb_publishable_tKeUN6N774CqR8YucuDwSw_U35gepAu";
 
 async function addProduct() {
 
-  const name = document.getElementById("name").value.trim();
+const btn = document.getElementById("addBtn"); // 👈 get button
+  
+const name = document.getElementById("name").value.trim();
 const price = document.getElementById("price").value.trim();
 const size = document.getElementById("size").value;
 const category = document.getElementById("category").value;
@@ -93,7 +95,12 @@ let imagesArray = imagesInput
   .filter(img => img !== "");
 
 const images = JSON.stringify(imagesArray);
-  const response = await fetch(`${SUPABASE_URL}/rest/v1/products`, {
+
+  btn.innerText = "Adding...";
+  btn.disabled = true;
+
+  try {
+const response = await fetch(`${SUPABASE_URL}/rest/v1/products`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
@@ -122,9 +129,19 @@ const images = JSON.stringify(imagesArray);
 } else {
   alert("Error adding product");
 }
+    
+} catch (err) {
+    console.error(err);
+    alert("Something went wrong");
+  }
+
+  // 🔥 RESET BUTTON (always runs)
+  btn.innerText = "Add Product";
+  btn.disabled = false;
 }
 document.addEventListener("keydown", (e) => {
-  if (e.key === "Enter") {
+  if (e.key === "Enter" && document.getElementById("adminContent").style.display === "block") {
+    e.preventDefault();
     addProduct();
   }
 });
