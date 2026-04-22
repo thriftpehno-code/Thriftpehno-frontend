@@ -47,7 +47,7 @@
 
 <textarea id="images" placeholder="Paste one image link per line"></textarea>
 
-  <button onclick="addProduct()">Add Product</button>
+ <button onclick="addProduct()" style="margin-top:10px;">Add Product</button>
 
 </div>
 
@@ -66,18 +66,27 @@ const SUPABASE_KEY = "sb_publishable_tKeUN6N774CqR8YucuDwSw_U35gepAu";
 
 async function addProduct() {
 
-  const name = document.getElementById("name").value;
-  const price = document.getElementById("price").value;
-  const size = document.getElementById("size").value;
-  const category = document.getElementById("category").value;
- let imagesInput = document.getElementById("images").value;
-// VALIDATION HERE
-  if (!name || !price || !imagesInput) {
-    alert("Fill all fields properly");
-    return;
-  }
-  
-// convert lines → array → JSON
+  const name = document.getElementById("name").value.trim();
+const price = document.getElementById("price").value.trim();
+const size = document.getElementById("size").value;
+const category = document.getElementById("category").value;
+let imagesInput = document.getElementById("images").value;
+
+// VALIDATION (all important fields)
+if (!name || !price || !category || !imagesInput) {
+  alert("Fill all fields properly");
+  return;
+}
+
+// CONVERT PRICE TO NUMBER
+const priceNumber = Number(price);
+
+if (isNaN(priceNumber)) {
+  alert("Price must be a number");
+  return;
+}
+
+// CONVERT IMAGES (lines → JSON)
 let imagesArray = imagesInput
   .split("\n")
   .map(img => img.trim())
@@ -93,7 +102,7 @@ const images = JSON.stringify(imagesArray);
     },
     body: JSON.stringify({
   name,
-  price,
+  price: priceNumber,
   size: size.trim(),
   category: category.trim().toLowerCase(),
   images
@@ -114,7 +123,11 @@ const images = JSON.stringify(imagesArray);
   alert("Error adding product");
 }
 }
-
+document.addEventListener("keydown", (e) => {
+  if (e.key === "Enter") {
+    addProduct();
+  }
+});
 </script>
 
 </body>
