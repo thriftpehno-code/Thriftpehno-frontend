@@ -64,8 +64,20 @@ async function addProduct() {
   const price = document.getElementById("price").value;
   const size = document.getElementById("size").value;
   const category = document.getElementById("category").value;
-  const images = document.getElementById("images").value;
+ let imagesInput = document.getElementById("images").value;
+// VALIDATION HERE
+  if (!name || !price || !imagesInput) {
+    alert("Fill all fields properly");
+    return;
+  }
+  
+// convert lines → array → JSON
+let imagesArray = imagesInput
+  .split("\n")
+  .map(img => img.trim())
+  .filter(img => img !== "");
 
+const images = JSON.stringify(imagesArray);
   const response = await fetch(`${SUPABASE_URL}/rest/v1/products`, {
     method: "POST",
     headers: {
