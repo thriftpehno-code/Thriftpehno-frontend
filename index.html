@@ -89,7 +89,38 @@ async function loadProducts() {
   data.forEach(product => {
 
     // SIZE FILTER
-  
+  if (selectedSize && selectedSize !== "ALL") {
+
+  const m = product.measurement;
+
+  if (!m) return;
+
+  // >25
+  if (selectedSize.includes(">")) {
+    const min = Number(selectedSize.replace(">", ""));
+    if (m <= min) return;
+  }
+
+  // 44<
+  else if (selectedSize.includes("<")) {
+    const max = Number(selectedSize.replace("<", ""));
+    if (m >= max) return;
+  }
+
+  // 30-31 OR M (38-41)
+  else if (selectedSize.includes("-")) {
+    const range = selectedSize.match(/\d+/g);
+    const min = Number(range[0]);
+    const max = Number(range[1]);
+
+    if (m < min || m > max) return;
+  }
+
+  // fallback (just in case)
+  else {
+    if (product.size !== selectedSize) return;
+  }
+}
   // fallback (for plain sizes if any)
   else {
     if (product.size !== selectedSize) return;
