@@ -86,15 +86,16 @@ const response = await fetch(url, {
   imgSrc = "";
 }
 
-  grid.innerHTML += `
-    <a href="product.html?id=${product.id}" style="text-decoration:none; color:white;">
-      <div>
-        <img src="${imgSrc}" style="width:100%;">
-        <p>${product.name}</p>
-        <p>${product.price}</p>
-      </div>
-    </a>
-  `;
+ grid.innerHTML += `
+  <a href="product.html?id=${product.id}" style="text-decoration:none; color:white;">
+    <div>
+      <img src="${imgSrc}" style="width:100%;">
+      <p>${product.name}</p>
+      <p>${product.price}</p>
+      <p>Size: ${product.size || "-"}</p>
+    </div>
+  </a>
+`;
 
 });
 
