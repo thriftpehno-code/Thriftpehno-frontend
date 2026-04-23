@@ -34,26 +34,22 @@
   
   <div style="display:flex; justify-content:center; gap:30px; flex-wrap:wrap; padding:20px;">
 
-<a href="?category=pants" style="border:1px solid white; padding:20px; color:white; text-decoration:none;">Pants</a>
-<a href="?category=shirts" style="border:1px solid white; padding:20px; color:white; text-decoration:none;">Shirts</a>
-<a href="?category=jackets" style="border:1px solid white; padding:20px; color:white; text-decoration:none;">Jackets</a>    
-<a href="?category=tshirts" style="border:1px solid white; padding:20px; color:white; text-decoration:none;">T-Shirts</a>
-<a href="?category=activewear" style="border:1px solid white; padding:20px; color:white; text-decoration:none;">Activewear</a>
-<a href="?category=ladies" style="border:1px solid white; padding:20px; color:white; text-decoration:none;">Ladies</a>
-<a href="?category=accessories" style="border:1px solid white; padding:20px; color:white; text-decoration:none;">Accessories</a>
+<a href="#" onclick="openFilter(event, 'pants')"> style="border:1px solid white; padding:20px; color:white; text-decoration:none;">Pants</a>
+<a href="#" onclick="openFilter(event, 'shirts')"> style="border:1px solid white; padding:20px; color:white; text-decoration:none;">Shirts</a>
+<a href="#" onclick="openFilter(event, 'jackets')"> style="border:1px solid white; padding:20px; color:white; text-decoration:none;">Jackets</a>    
+<a href="#" onclick="openFilter(event, 'tshirts')"> style="border:1px solid white; padding:20px; color:white; text-decoration:none;">T-Shirts</a>
+<a href="#" onclick="openFilter(event, 'activewear')"> style="border:1px solid white; padding:20px; color:white; text-decoration:none;">Activewear</a>
+<a href="#" onclick="openFilter(event, 'ladies')"> style="border:1px solid white; padding:20px; color:white; text-decoration:none;">Ladies</a>
+<a href="#" onclick="openFilter(event, 'accessories')"> style="border:1px solid white; padding:20px; color:white; text-decoration:none;">Accessories</a>
   </div>
-
-<div style="text-align:center; margin:20px;">
-  <select id="sizeFilter" style="padding:10px; width:200px;">
-    <option value="">All Sizes</option>
-    <option value="XS">XS</option>
-    <option value="S">S</option>
-    <option value="M">M</option>
-    <option value="L">L</option>
-    <option value="XL">XL</option>
-    <option value="XXL">XXL</option>
-    <option value="XXXL">XXXL</option>
-  </select>
+<div id="sizePanel" style="
+  position:absolute;
+  display:none;
+  background:black;
+  border:1px solid white;
+  padding:10px;
+  z-index:1000;
+">
 </div>
   
   <!-- PRODUCT GRID -->
@@ -67,7 +63,14 @@ const SUPABASE_KEY = "sb_publishable_tKeUN6N774CqR8YucuDwSw_U35gepAu";
 async function loadProducts() {
 
 const params = new URLSearchParams(window.location.search);
-const category = params.get("category")?.trim().toLowerCase();
+const category = selectedCategory;?.trim().toLowerCase();
+if (category && product.category?.trim().toLowerCase() !== category) {
+  return;
+}
+
+if (selectedSize && product.size !== selectedSize) {
+  return;
+}  
 const selectedSize = document.getElementById("sizeFilter")?.value;
   let url = `${SUPABASE_URL}/rest/v1/products`;
 
@@ -121,9 +124,55 @@ const response = await fetch(url, {
 });
 
 }
+let selectedCategory = null;
+let selectedSize = null;
 
+    function openFilter(e, category) {
+  e.preventDefault();
+
+  selectedCategory = category;
+
+  function selectSize(size) {
+  selectedSize = size;
+
+  document.getElementById("sizePanel").style.display = "none";
+
+  loadProducts();
+}    
+
+  const panel = document.getElementById("sizePanel");
+
+  // position panel under button
+  const rect = e.target.getBoundingClientRect();
+  panel.style.top = rect.bottom + "px";
+  panel.style.left = rect.left + "px";
+
+  // sizes (for now same for all)
+  const sizes = ["XS","S","M","L","XL","XXL","XXXL"];
+
+  panel.innerHTML = "";
+
+  sizes.forEach(size => {
+    panel.innerHTML += `
+      <div onclick="selectSize('${size}')" style="padding:5px; cursor:pointer;">
+        ${size}
+      </div>
+    `;
+  });
+
+  panel.style.display = "block";
+}
+    
 loadProducts();
 document.getElementById("sizeFilter").addEventListener("change", loadProducts);
+
+document.addEventListener("click", (e) => {
+  const panel = document.getElementById("sizePanel");
+
+  if (!panel.contains(e.target) && !e.target.closest("a")) {
+    panel.style.display = "none";
+  }
+});    
 </script>
 
 </body>
