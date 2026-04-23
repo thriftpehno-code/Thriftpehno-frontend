@@ -127,10 +127,10 @@ function openFilter(e, category) {
   const panel = document.getElementById("sizePanel");
 
   const rect = e.target.getBoundingClientRect();
-  panel.style.top = rect.bottom + "px";
-  panel.style.left = rect.left + "px";
-
-  const sizes = ["XS","S","M","L","XL","XXL","XXXL"];
+panel.style.top = (rect.bottom + window.scrollY) + "px";
+panel.style.left = (rect.left + window.scrollX) + "px";
+  
+  const sizes = ["ALL","XS","S","M","L","XL","XXL","XXXL"];
 
   panel.innerHTML = "";
 
@@ -143,12 +143,18 @@ function openFilter(e, category) {
   });
 
   panel.style.display = "block";
+  loadProducts();
 }
 
 
 // SELECT SIZE
 function selectSize(size) {
-  selectedSize = size;
+
+  if (size === "ALL") {
+    selectedSize = null;
+  } else {
+    selectedSize = size;
+  }
 
   document.getElementById("sizePanel").style.display = "none";
 
