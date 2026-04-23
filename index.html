@@ -56,114 +56,23 @@
   <div id="productGrid" style="padding:20px; display:grid; grid-template-columns: repeat(2, 1fr); gap:15px;"></div>
 
   <script>
+
 let selectedCategory = null;
 let selectedSize = null;
-    
+
 const SUPABASE_URL = "https://tyvbwwccwcgkafueroui.supabase.co";
 const SUPABASE_KEY = "sb_publishable_tKeUN6N774CqR8YucuDwSw_U35gepAu";
 
+// LOAD PRODUCTS
 async function loadProducts() {
 
-const category = selectedCategory;
-let url = `${SUPABASE_URL}/rest/v1/products`;
+  const category = selectedCategory;
 
-if (category) {
-  url += `?category=eq.${category}`;
-}
-
-
-const category = selectedCategory;?.trim().toLowerCase();
-if (category && product.category?.trim().toLowerCase() !== category) {
-  return;
-}
-
-if (selectedSize && product.size !== selectedSize) return;  
   let url = `${SUPABASE_URL}/rest/v1/products`;
 
-if (category) {
-  url += `?category=eq.${category}`;
-}
-
-const response = await fetch(url, {
-  headers: {
-    apikey: SUPABASE_KEY,
-    Authorization: `Bearer ${SUPABASE_KEY}`
+  if (category) {
+    url += `?category=eq.${category}`;
   }
-});
-  const data = await response.json();
-
-  const grid = document.getElementById("productGrid");
-
-  grid.innerHTML = "";
-
-  data.forEach(product => {
-    if (selectedSize && product.size !== selectedSize) {
-  return;
-}
-    if (category && product.category?.trim().toLowerCase() !== category) {
-  return;
-}
-   let imgSrc = "";
-
- try {
-  if (product.images && product.images.trim().startsWith("[")) {
-    imgSrc = JSON.parse(product.images)[0];
-  } else {
-    imgSrc = product.images;
-  }
-} catch (e) {
-  console.error("Bad JSON for product:", product.id, product.images);
-  imgSrc = "";
-}
-
- grid.innerHTML += `
-  <a href="product.html?id=${product.id}" style="text-decoration:none; color:white;">
-    <div>
-      <img src="${imgSrc}" style="width:100%;">
-      <p>${product.name}</p>
-      <p>₹${product.price}</p>
-      <p>Size: ${product.size || "-"}</p>
-    </div>
-  </a>
-`;
-
-});
-
-}
-   function openFilter(e, category) {
-  e.preventDefault();
-
-  selectedCategory = category;
-
-  const panel = document.getElementById("sizePanel");
-
-  const rect = e.target.getBoundingClientRect();
-  panel.style.top = rect.bottom + "px";
-  panel.style.left = rect.left + "px";
-
-  const sizes = ["XS","S","M","L","XL","XXL","XXXL"];
-
-  panel.innerHTML = "";
-
-  sizes.forEach(size => {
-    panel.innerHTML += `
-      <div onclick="selectSize('${size}')" style="padding:5px; cursor:pointer;">
-        ${size}
-      </div>
-    `;
-  });
-
-  panel.style.display = "block";
-}
-  function selectSize(size) {
-  selectedSize = size;
-
-  document.getElementById("sizePanel").style.display = "none";
-
-  loadProducts();
-}
- async function loadProducts() {
-
 
   const response = await fetch(url, {
     headers: {
@@ -179,6 +88,7 @@ const response = await fetch(url, {
 
   data.forEach(product => {
 
+    // SIZE FILTER
     if (selectedSize && product.size !== selectedSize) return;
 
     let imgSrc = "";
@@ -206,7 +116,59 @@ const response = await fetch(url, {
     `;
   });
 }
-</script>
 
+
+// OPEN FLOATING PANEL
+function openFilter(e, category) {
+  e.preventDefault();
+
+  selectedCategory = category;
+
+  const panel = document.getElementById("sizePanel");
+
+  const rect = e.target.getBoundingClientRect();
+  panel.style.top = rect.bottom + "px";
+  panel.style.left = rect.left + "px";
+
+  const sizes = ["XS","S","M","L","XL","XXL","XXXL"];
+
+  panel.innerHTML = "";
+
+  sizes.forEach(size => {
+    panel.innerHTML += `
+      <div onclick="selectSize('${size}')" style="padding:5px; cursor:pointer;">
+        ${size}
+      </div>
+    `;
+  });
+
+  panel.style.display = "block";
+}
+
+
+// SELECT SIZE
+function selectSize(size) {
+  selectedSize = size;
+
+  document.getElementById("sizePanel").style.display = "none";
+
+  loadProducts();
+}
+
+
+// CLOSE PANEL WHEN CLICK OUTSIDE
+document.addEventListener("click", (e) => {
+  const panel = document.getElementById("sizePanel");
+
+  if (!panel.contains(e.target) && !e.target.closest("a")) {
+    panel.style.display = "none";
+  }
+});
+
+
+// INITIAL LOAD
+loadProducts();
+
+</script>
 </body>
 </html>
