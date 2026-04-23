@@ -64,20 +64,7 @@ document.getElementById("password").addEventListener("input", (e) => {
 const SUPABASE_URL = "https://tyvbwwccwcgkafueroui.supabase.co";
 const SUPABASE_KEY = "sb_publishable_tKeUN6N774CqR8YucuDwSw_U35gepAu";
 
-async function addProduct() {
-
-const btn = document.getElementById("addBtn"); // 👈 get button
-  
-const name = document.getElementById("name").value.trim();
-const price = document.getElementById("price").value.trim();
-const measurement = Number(document.getElementById("measurement").value);
-
-if (isNaN(measurement)) {
-  alert("Enter valid measurement");
-  return;
-}
-
- function getActivewearSize(measurement) {
+function getActivewearSize(measurement) {
 
   if (measurement <= 33) return "XS";
   if (measurement <= 37) return "S";
@@ -89,6 +76,20 @@ if (isNaN(measurement)) {
 
   return "Unknown";
 }  
+  
+  async function addProduct() {
+
+const btn = document.getElementById("addBtn"); // 👈 get button
+  
+const name = document.getElementById("name").value.trim();
+const price = document.getElementById("price").value.trim();
+const category = document.getElementById("category").value.trim();
+const measurement = Number(document.getElementById("measurement").value);
+
+if (isNaN(measurement)) {
+  alert("Enter valid measurement");
+  return;
+}
   
 let size = "";
 
@@ -154,7 +155,6 @@ const response = await fetch(`${SUPABASE_URL}/rest/v1/products`, {
   // ✅ CLEAR FORM HERE
   document.getElementById("name").value = "";
   document.getElementById("price").value = "";
-  document.getElementById("size").value = "";
   document.getElementById("category").value = "";
   document.getElementById("images").value = "";
 
