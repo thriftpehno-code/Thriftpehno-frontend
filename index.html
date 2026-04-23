@@ -93,8 +93,7 @@ async function loadProducts() {
 if (selectedSize && selectedSize !== "ALL") {
 
  const m = Number(product.measurement);
-
-if (m === null || m === undefined) return;
+if (m === null || m === undefined || isNaN(m)) return;
 
   // >25
   if (selectedSize.includes(">")) {
