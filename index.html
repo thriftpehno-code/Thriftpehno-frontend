@@ -92,9 +92,9 @@ async function loadProducts() {
     // SIZE FILTER
 if (selectedSize && selectedSize !== "ALL") {
 
-  const m = product.measurement;
+ const m = Number(product.measurement);
 
-  if (!m) return;
+if (m === null || m === undefined) return;
 
   // >25
   if (selectedSize.includes(">")) {
