@@ -71,7 +71,7 @@ async function loadProducts() {
   let url = `${SUPABASE_URL}/rest/v1/products`;
 
   if (category) {
-    url += `?category=eq.${category}`;
+    url += `?category=ilike.${category}`;
   }
 
   const response = await fetch(url, {
