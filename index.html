@@ -130,30 +130,17 @@ const response = await fetch(url, {
 });
 
 }
-let selectedCategory = null;
-let selectedSize = null;
-
-    function openFilter(e, category) {
+   function openFilter(e, category) {
   e.preventDefault();
 
   selectedCategory = category;
 
-  function selectSize(size) {
-  selectedSize = size;
-
-  document.getElementById("sizePanel").style.display = "none";
-
-  loadProducts();
-}
-
   const panel = document.getElementById("sizePanel");
 
-  // position panel under button
   const rect = e.target.getBoundingClientRect();
   panel.style.top = rect.bottom + "px";
   panel.style.left = rect.left + "px";
 
-  // sizes (for now same for all)
   const sizes = ["XS","S","M","L","XL","XXL","XXXL"];
 
   panel.innerHTML = "";
@@ -168,15 +155,57 @@ let selectedSize = null;
 
   panel.style.display = "block";
 }
-    
-loadProducts();
-document.addEventListener("click", (e) => {
-  const panel = document.getElementById("sizePanel");
+  function selectSize(size) {
+  selectedSize = size;
 
-  if (!panel.contains(e.target) && !e.target.closest("a")) {
-    panel.style.display = "none";
-  }
-});    
+  document.getElementById("sizePanel").style.display = "none";
+
+  loadProducts();
+}
+ async function loadProducts() {
+
+
+  const response = await fetch(url, {
+    headers: {
+      apikey: SUPABASE_KEY,
+      Authorization: `Bearer ${SUPABASE_KEY}`
+    }
+  });
+
+  const data = await response.json();
+
+  const grid = document.getElementById("productGrid");
+  grid.innerHTML = "";
+
+  data.forEach(product => {
+
+    if (selectedSize && product.size !== selectedSize) return;
+
+    let imgSrc = "";
+
+    try {
+      if (product.images && product.images.trim().startsWith("[")) {
+        imgSrc = JSON.parse(product.images)[0];
+      } else {
+        imgSrc = product.images;
+      }
+    } catch (e) {
+      console.error("Bad JSON:", product.images);
+      imgSrc = "";
+    }
+
+    grid.innerHTML += `
+      <a href="product.html?id=${product.id}" style="text-decoration:none; color:white;">
+        <div>
+          <img src="${imgSrc}" style="width:100%;">
+          <p>${product.name}</p>
+          <p>₹${product.price}</p>
+          <p>Size: ${product.size || "-"}</p>
+        </div>
+      </a>
+    `;
+  });
+}
 </script>
 
 </body>
