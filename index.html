@@ -2,10 +2,6 @@
 <html>
 <head>
   <title>Thrift Pehno</title>
-</head>
-  
-<head>
-  <title>Thrift Pehno</title>
 
   <style>
     .admin-btn {
@@ -73,8 +69,11 @@ async function loadProducts() {
 const params = new URLSearchParams(window.location.search);
 const category = params.get("category")?.trim().toLowerCase();
 const selectedSize = document.getElementById("sizeFilter")?.value;
-  
-let url = `${SUPABASE_URL}/rest/v1/products`;
+  let url = `${SUPABASE_URL}/rest/v1/products`;
+
+if (category) {
+  url += `?category=eq.${category}`;
+}
 
 const response = await fetch(url, {
   headers: {
@@ -113,7 +112,7 @@ const response = await fetch(url, {
     <div>
       <img src="${imgSrc}" style="width:100%;">
       <p>${product.name}</p>
-      <p>${product.price}</p>
+      <p>₹${product.price}</p>
       <p>Size: ${product.size || "-"}</p>
     </div>
   </a>
