@@ -34,13 +34,13 @@
   
   <div style="display:flex; justify-content:center; gap:30px; flex-wrap:wrap; padding:20px;">
 
-<a href="#" onclick="openFilter(event, 'pants')"> style="border:1px solid white; padding:20px; color:white; text-decoration:none;">Pants</a>
-<a href="#" onclick="openFilter(event, 'shirts')"> style="border:1px solid white; padding:20px; color:white; text-decoration:none;">Shirts</a>
-<a href="#" onclick="openFilter(event, 'jackets')"> style="border:1px solid white; padding:20px; color:white; text-decoration:none;">Jackets</a>    
-<a href="#" onclick="openFilter(event, 'tshirts')"> style="border:1px solid white; padding:20px; color:white; text-decoration:none;">T-Shirts</a>
-<a href="#" onclick="openFilter(event, 'activewear')"> style="border:1px solid white; padding:20px; color:white; text-decoration:none;">Activewear</a>
-<a href="#" onclick="openFilter(event, 'ladies')"> style="border:1px solid white; padding:20px; color:white; text-decoration:none;">Ladies</a>
-<a href="#" onclick="openFilter(event, 'accessories')"> style="border:1px solid white; padding:20px; color:white; text-decoration:none;">Accessories</a>
+<a href="#" onclick="openFilter(event, 'pants')" style="border:1px solid white; padding:20px; color:white;">Pants</a>
+<a href="#" onclick="openFilter(event, 'shirts')" style="border:1px solid white; padding:20px; color:white;">Shirts</a>
+<a href="#" onclick="openFilter(event, 'jackets')" style="border:1px solid white; padding:20px; color:white;">Jackets</a>
+<a href="#" onclick="openFilter(event, 'tshirts')" style="border:1px solid white; padding:20px; color:white;">T-Shirts</a>
+<a href="#" onclick="openFilter(event, 'activewear')" style="border:1px solid white; padding:20px; color:white;">Activewear</a>
+<a href="#" onclick="openFilter(event, 'ladies')" style="border:1px solid white; padding:20px; color:white;">Ladies</a>
+<a href="#" onclick="openFilter(event, 'accessories')" style="border:1px solid white; padding:20px; color:white;">Accessories</a>
   </div>
 <div id="sizePanel" style="
   position:absolute;
@@ -56,22 +56,28 @@
   <div id="productGrid" style="padding:20px; display:grid; grid-template-columns: repeat(2, 1fr); gap:15px;"></div>
 
   <script>
-
+let selectedCategory = null;
+let selectedSize = null;
+    
 const SUPABASE_URL = "https://tyvbwwccwcgkafueroui.supabase.co";
 const SUPABASE_KEY = "sb_publishable_tKeUN6N774CqR8YucuDwSw_U35gepAu";
 
 async function loadProducts() {
 
-const params = new URLSearchParams(window.location.search);
+const category = selectedCategory;
+let url = `${SUPABASE_URL}/rest/v1/products`;
+
+if (category) {
+  url += `?category=eq.${category}`;
+}
+
+
 const category = selectedCategory;?.trim().toLowerCase();
 if (category && product.category?.trim().toLowerCase() !== category) {
   return;
 }
 
-if (selectedSize && product.size !== selectedSize) {
-  return;
-}  
-const selectedSize = document.getElementById("sizeFilter")?.value;
+if (selectedSize && product.size !== selectedSize) return;  
   let url = `${SUPABASE_URL}/rest/v1/products`;
 
 if (category) {
@@ -138,7 +144,7 @@ let selectedSize = null;
   document.getElementById("sizePanel").style.display = "none";
 
   loadProducts();
-}    
+}
 
   const panel = document.getElementById("sizePanel");
 
@@ -164,8 +170,6 @@ let selectedSize = null;
 }
     
 loadProducts();
-document.getElementById("sizeFilter").addEventListener("change", loadProducts);
-
 document.addEventListener("click", (e) => {
   const panel = document.getElementById("sizePanel");
 
