@@ -89,7 +89,22 @@ async function loadProducts() {
   data.forEach(product => {
 
     // SIZE FILTER
-    if (selectedSize && product.size !== selectedSize) return;
+   if (selectedSize && selectedSize !== "ALL") {
+
+  // if range like 30-31
+  if (selectedSize.includes("-")) {
+
+    const [min, max] = selectedSize.split("-").map(Number);
+
+    if (!product.measurement || product.measurement < min || product.measurement > max) {
+      return;
+    }
+
+  } else {
+    // normal size (S, M, L)
+    if (product.size !== selectedSize) return;
+  }
+}
 
     let imgSrc = "";
 
@@ -132,15 +147,26 @@ panel.style.left = (rect.left + window.scrollX) + "px";
   
 let sizes = [];
 
-if (category === "activewear") {
-  sizes = ["XS","S","M","L","XL","XXL","XXXL","ALL"];
+if (category === "pants") {
+  sizes = [">25","26-27","28-29","30-31","32-33","34-35","36-37","38-39","40-41","42-43","44<","ALL"];
 }
-else if (category === "shirts" || category === "tshirts" || category === "jackets") {
-  sizes = ["S","M","L","XL","XXL","ALL"];
+
+else if (category === "ladies") {
+  sizes = [">25","26-27","28-29","30-31","32-33","34-35","36-37","38-39","40-41","42-43","44<","ALL"];
 }
-else if (category === "pants") {
-  sizes = ["28","30","32","34","36","38","ALL"];
+
+else if (category === "shirts" || category === "tshirts") {
+  sizes = ["XS (34-35)","S (36-37)","M (38-39)","L (40-41)","XL (42-43)","XXL (44-45)","XXXL (46-47)","XXXXL (48-51)","ALL"];
 }
+
+else if (category === "activewear") {
+  sizes = ["XS (>33)","S (34-37)","M (38-41)","L (42-45)","XL (46-49)","XXL (50-53)","XXXL (54-57)","ALL"];
+}
+
+else if (category === "jackets") {
+  sizes = ["S (34-37)","M (38-41)","L (42-45)","XL (46-49)","XXL (50-53)","XXXL (54-57)","ALL"];
+}
+
 else {
   sizes = ["ALL"];
 }
@@ -163,12 +189,33 @@ else {
 // SELECT SIZE
 function selectSize(size) {
 
-  if (size === "ALL") {
-    selectedSize = null;
-  } else {
-    selectedSize = size;
+  if (selectedSize && selectedSize !== "ALL") {
+
+  const m = product.measurement;
+
+  if (!m) return;
+
+  // >25
+  if (selectedSize.includes(">")) {
+    const min = Number(selectedSize.replace(">", ""));
+    if (m <= min) return;
   }
 
+  // 44<
+  else if (selectedSize.includes("<")) {
+    const max = Number(selectedSize.replace("<", ""));
+    if (m >= max) return;
+  }
+
+  // 30-31 or M (38-41)
+  else if (selectedSize.includes("-")) {
+    const range = selectedSize.match(/\d+/g);
+    const min = Number(range[0]);
+    const max = Number(range[1]);
+
+    if (m < min || m > max) return;
+  }
+}
   document.getElementById("sizePanel").style.display = "none";
 
   loadProducts();
