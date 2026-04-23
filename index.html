@@ -89,19 +89,9 @@ async function loadProducts() {
   data.forEach(product => {
 
     // SIZE FILTER
-   if (selectedSize && selectedSize !== "ALL") {
-
-  // if range like 30-31
-  if (selectedSize.includes("-")) {
-
-    const [min, max] = selectedSize.split("-").map(Number);
-
-    if (!product.measurement || product.measurement < min || product.measurement > max) {
-      return;
-    }
-
-  } else {
-    // normal size (S, M, L)
+  
+  // fallback (for plain sizes if any)
+  else {
     if (product.size !== selectedSize) return;
   }
 }
@@ -189,36 +179,16 @@ else {
 // SELECT SIZE
 function selectSize(size) {
 
-  if (selectedSize && selectedSize !== "ALL") {
-
-  const m = product.measurement;
-
-  if (!m) return;
-
-  // >25
-  if (selectedSize.includes(">")) {
-    const min = Number(selectedSize.replace(">", ""));
-    if (m <= min) return;
+  if (size === "ALL") {
+    selectedSize = null;
+  } else {
+    selectedSize = size;
   }
 
-  // 44<
-  else if (selectedSize.includes("<")) {
-    const max = Number(selectedSize.replace("<", ""));
-    if (m >= max) return;
-  }
-
-  // 30-31 or M (38-41)
-  else if (selectedSize.includes("-")) {
-    const range = selectedSize.match(/\d+/g);
-    const min = Number(range[0]);
-    const max = Number(range[1]);
-
-    if (m < min || m > max) return;
-  }
-}
   document.getElementById("sizePanel").style.display = "none";
 
   loadProducts();
+}
 }
 
 
