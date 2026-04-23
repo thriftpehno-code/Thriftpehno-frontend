@@ -3,7 +3,21 @@
 <head>
   <title>Thrift Pehno</title>
 </head>
-
+  
+<style>
+    .admin-btn {
+      position: fixed;
+      top: 20px;
+      right: 20px;
+      border: 1px solid white;
+      padding: 8px 15px;
+      color: white;
+      text-decoration: none;
+      font-size: 12px;
+      z-index: 999;
+    }
+  </style>
+  
 <body style="margin:0; background:black; color:white; font-family:Arial, sans-serif;">
 <!-- update -->
 <a href="admin.html" class="admin-btn">Admin</a>
@@ -21,24 +35,12 @@
 
 <a href="?category=pants" style="border:1px solid white; padding:20px; color:white; text-decoration:none;">Pants</a>
 <a href="?category=shirts" style="border:1px solid white; padding:20px; color:white; text-decoration:none;">Shirts</a>
-<a href="?category=jacketss" style="border:1px solid white; padding:20px; color:white; text-decoration:none;">jackets</a>    
+<a href="?category=jackets" style="border:1px solid white; padding:20px; color:white; text-decoration:none;">Jackets</a>    
 <a href="?category=tshirts" style="border:1px solid white; padding:20px; color:white; text-decoration:none;">T-Shirts</a>
 <a href="?category=activewear" style="border:1px solid white; padding:20px; color:white; text-decoration:none;">Activewear</a>
 <a href="?category=ladies" style="border:1px solid white; padding:20px; color:white; text-decoration:none;">Ladies</a>
 <a href="?category=accessories" style="border:1px solid white; padding:20px; color:white; text-decoration:none;">Accessories</a>
   </div>
-
-  .admin-btn {
-  position: fixed;
-  top: 20px;
-  right: 20px;
-  border: 1px solid white;
-  padding: 8px 15px;
-  color: white;
-  text-decoration: none;
-  font-size: 12px;
-  z-index: 999;
-}
   
   <!-- PRODUCT GRID -->
   <div id="productGrid" style="padding:20px; display:grid; grid-template-columns: repeat(2, 1fr); gap:15px;"></div>
