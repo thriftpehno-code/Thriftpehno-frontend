@@ -6,6 +6,8 @@
 
 <body style="margin:0; background:black; color:white; font-family:Arial, sans-serif;">
 <!-- update -->
+<a href="admin.html" class="admin-btn">Admin</a>
+  
   <!-- HEADER -->
   <div style="padding:40px; text-align:center;">
     <h1 style="font-size:50px; letter-spacing:5px;">THRIFT PEHNO</h1>
@@ -26,6 +28,18 @@
 <a href="?category=accessories" style="border:1px solid white; padding:20px; color:white; text-decoration:none;">Accessories</a>
   </div>
 
+  .admin-btn {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  border: 1px solid white;
+  padding: 8px 15px;
+  color: white;
+  text-decoration: none;
+  font-size: 12px;
+  z-index: 999;
+}
+  
   <!-- PRODUCT GRID -->
   <div id="productGrid" style="padding:20px; display:grid; grid-template-columns: repeat(2, 1fr); gap:15px;"></div>
 
