@@ -42,7 +42,7 @@
 
 <input id="name" placeholder="Product Name">
 <input id="price" placeholder="Price">
-<input id="size" placeholder="Size">
+<input id="measurement" placeholder="Measurement (inches)">
 <input id="category" placeholder="Category">
 
 <textarea id="images" placeholder="Paste one image link per line"></textarea>
@@ -70,7 +70,33 @@ const btn = document.getElementById("addBtn"); // 👈 get button
   
 const name = document.getElementById("name").value.trim();
 const price = document.getElementById("price").value.trim();
-const size = document.getElementById("size").value.trim();
+const measurement = Number(document.getElementById("measurement").value);
+
+if (isNaN(measurement)) {
+  alert("Enter valid measurement");
+  return;
+}
+
+ function getActivewearSize(measurement) {
+
+  if (measurement <= 33) return "XS";
+  if (measurement <= 37) return "S";
+  if (measurement <= 41) return "M";
+  if (measurement <= 45) return "L";
+  if (measurement <= 49) return "XL";
+  if (measurement <= 53) return "XXL";
+  if (measurement <= 57) return "XXXL";
+
+  return "Unknown";
+}  
+  
+let size = "";
+
+if (category.toLowerCase() === "activewear") {
+  size = getActivewearSize(measurement);
+} else {
+  size = measurement.toString(); // temporary fallback
+} 
 const category = document.getElementById("category").value.trim();
 let imagesInput = document.getElementById("images").value.trim();
 
@@ -112,10 +138,11 @@ const response = await fetch(`${SUPABASE_URL}/rest/v1/products`, {
       apikey: SUPABASE_KEY,
       Authorization: `Bearer ${SUPABASE_KEY}`
     },
-    body: JSON.stringify({
+   body: JSON.stringify({
   name,
   price: priceNumber,
   size,
+  measurement,
   category: category.toLowerCase(),
   images
 })
