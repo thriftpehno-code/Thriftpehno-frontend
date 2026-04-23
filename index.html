@@ -87,8 +87,9 @@ async function loadProducts() {
   grid.innerHTML = "";
 
   data.forEach(product => {
+    console.log("PRODUCT:", product.name, product.measurement);
 
-  // SIZE FILTER
+    // SIZE FILTER
 if (selectedSize && selectedSize !== "ALL") {
 
   const m = product.measurement;
@@ -109,7 +110,10 @@ if (selectedSize && selectedSize !== "ALL") {
 
   // 30-31 OR M (38-41)
   else if (selectedSize.includes("-")) {
-    const range = selectedSize.match(/\d+/g);
+    const range = selectedSize.match(/\d+/g
+const range = selectedSize.match(/\d+/g);
+console.log("CHECKING RANGE:", selectedSize, "against", m);
+                                     
     const min = Number(range[0]);
     const max = Number(range[1]);
 
@@ -206,6 +210,7 @@ function selectSize(size) {
     selectedSize = null;
   } else {
     selectedSize = size;
+    console.log("SELECTED SIZE:", selectedSize);
   }
 
   document.getElementById("sizePanel").style.display = "none";
