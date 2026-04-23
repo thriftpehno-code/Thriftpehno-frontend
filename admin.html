@@ -98,7 +98,6 @@ if (category.toLowerCase() === "activewear") {
 } else {
   size = measurement.toString(); // temporary fallback
 } 
-const category = document.getElementById("category").value.trim();
 let imagesInput = document.getElementById("images").value.trim();
 
 // VALIDATION (all important fields)
@@ -155,6 +154,7 @@ const response = await fetch(`${SUPABASE_URL}/rest/v1/products`, {
   // ✅ CLEAR FORM HERE
   document.getElementById("name").value = "";
   document.getElementById("price").value = "";
+  document.getElementById("measurement").value = "";
   document.getElementById("category").value = "";
   document.getElementById("images").value = "";
 
