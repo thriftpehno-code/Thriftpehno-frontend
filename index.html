@@ -46,6 +46,19 @@
 <a href="?category=ladies" style="border:1px solid white; padding:20px; color:white; text-decoration:none;">Ladies</a>
 <a href="?category=accessories" style="border:1px solid white; padding:20px; color:white; text-decoration:none;">Accessories</a>
   </div>
+
+<div style="text-align:center; margin:20px;">
+  <select id="sizeFilter" style="padding:10px; width:200px;">
+    <option value="">All Sizes</option>
+    <option value="XS">XS</option>
+    <option value="S">S</option>
+    <option value="M">M</option>
+    <option value="L">L</option>
+    <option value="XL">XL</option>
+    <option value="XXL">XXL</option>
+    <option value="XXXL">XXXL</option>
+  </select>
+</div>
   
   <!-- PRODUCT GRID -->
   <div id="productGrid" style="padding:20px; display:grid; grid-template-columns: repeat(2, 1fr); gap:15px;"></div>
@@ -59,7 +72,8 @@ async function loadProducts() {
 
 const params = new URLSearchParams(window.location.search);
 const category = params.get("category")?.trim().toLowerCase();
-
+const selectedSize = document.getElementById("sizeFilter")?.value;
+  
 let url = `${SUPABASE_URL}/rest/v1/products`;
 
 const response = await fetch(url, {
@@ -75,6 +89,9 @@ const response = await fetch(url, {
   grid.innerHTML = "";
 
   data.forEach(product => {
+    if (selectedSize && product.size !== selectedSize) {
+  return;
+}
     if (category && product.category?.trim().toLowerCase() !== category) {
   return;
 }
@@ -107,7 +124,7 @@ const response = await fetch(url, {
 }
 
 loadProducts();
-
+document.getElementById("sizeFilter").addEventListener("change", loadProducts);
 </script>
 
 </body>
