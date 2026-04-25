@@ -270,35 +270,41 @@ window.addEventListener("beforeunload", function (e) {
     e.returnValue = "";
   }
 });
-  document.getElementById("images").addEventListener("input", function () {
-  const preview = document.getElementById("imagePreview");
-  const links = this.value.split("\n");
+  document.addEventListener("DOMContentLoaded", function () {
 
-  preview.innerHTML = "";
+  const imagesInput = document.getElementById("images");
 
-  links.forEach(link => {
-    const trimmed = link.trim();
-    if (!trimmed) return;
+  if (!imagesInput) return;
 
-    const img = document.createElement("img");
-img.src = trimmed;
+  imagesInput.addEventListener("input", function () {
+    const preview = document.getElementById("imagePreview");
+    const links = this.value.split("\n");
 
-img.style.width = "300px";
-img.style.height = "300px";
-img.style.objectFit = "cover";
-img.style.border = "1px solid white";
-img.style.cursor = "pointer";
+    preview.innerHTML = "";
 
-// CLICK TO REMOVE
-img.onclick = () => {
-  const updatedLinks = links.filter(l => l.trim() !== trimmed);
-  document.getElementById("images").value = updatedLinks.join("\n");
+    links.forEach(link => {
+      const trimmed = link.trim();
+      if (!trimmed) return;
 
-  // trigger preview refresh
-  document.getElementById("images").dispatchEvent(new Event("input"));
-   // ✅ THIS WAS MISSING
-  preview.appendChild(img);
-};
+      const img = document.createElement("img");
+      img.src = trimmed;
+
+      img.style.width = "300px";
+      img.style.height = "300px";
+      img.style.objectFit = "cover";
+      img.style.border = "1px solid white";
+      img.style.cursor = "pointer";
+
+      img.onclick = () => {
+        const updatedLinks = links.filter(l => l.trim() !== trimmed);
+        document.getElementById("images").value = updatedLinks.join("\n");
+        document.getElementById("images").dispatchEvent(new Event("input"));
+      };
+
+      preview.appendChild(img);
+    });
+  });
+
 });
 </script>
 
