@@ -150,13 +150,8 @@ const btn = document.getElementById("addBtn"); // 👈 get button
   
 const name = document.getElementById("name").value.trim();
 const price = document.getElementById("price").value.trim();
-const category = document.getElementById("category").value.trim();
+const category = document.getElementById("category").value;
 const measurement = Number(document.getElementById("measurement").value);
-
-if (isNaN(measurement)) {
-  alert("Enter valid measurement");
-  return;
-}
   
 let size = "";
 
@@ -195,11 +190,6 @@ if (!imagesInput.trim()) {
     
 // CONVERT PRICE TO NUMBER
 const priceNumber = Number(price);
-
-if (isNaN(priceNumber)) {
-  alert("Price must be a number");
-  return;
-}
 
 // CONVERT IMAGES (lines → JSON)
 let imagesArray = imagesInput
