@@ -126,6 +126,31 @@ const ADMIN_PASSWORD = "1234";
 document.getElementById("password").addEventListener("input", (e) => {
   if (e.target.value === ADMIN_PASSWORD) {
     document.getElementById("adminContent").style.display = "block";
+
+ async function loadAdminProducts() {
+
+  const response = await fetch(`${SUPABASE_URL}/rest/v1/products`, {
+    headers: {
+      apikey: SUPABASE_KEY,
+      Authorization: `Bearer ${SUPABASE_KEY}`
+    }
+  });
+
+  const data = await response.json();
+
+  const list = document.getElementById("productList");
+  list.innerHTML = "";
+
+  data.forEach(product => {
+    list.innerHTML += `
+      <div style="border:1px solid white; padding:10px; margin-bottom:10px;">
+        <p>${product.name}</p>
+        <p>₹${product.price}</p>
+        <button onclick="deleteProduct(${product.id})">Delete</button>
+      </div>
+    `;
+  });
+}   
   }
 });
 
@@ -272,30 +297,7 @@ window.addEventListener("beforeunload", function (e) {
     e.returnValue = "";
   }
 });
-   async function loadAdminProducts() {
-
-  const response = await fetch(`${SUPABASE_URL}/rest/v1/products`, {
-    headers: {
-      apikey: SUPABASE_KEY,
-      Authorization: `Bearer ${SUPABASE_KEY}`
-    }
-  });
-
-  const data = await response.json();
-
-  const list = document.getElementById("productList");
-  list.innerHTML = "";
-
-  data.forEach(product => {
-    list.innerHTML += `
-      <div style="border:1px solid white; padding:10px; margin-bottom:10px;">
-        <p>${product.name}</p>
-        <p>₹${product.price}</p>
-        <button onclick="deleteProduct(${product.id})">Delete</button>
-      </div>
-    `;
-  });
-}
+   
    
   document.addEventListener("DOMContentLoaded", function () {
 
