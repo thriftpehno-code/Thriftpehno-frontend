@@ -110,6 +110,11 @@
  <button id="addBtn" onclick="addProduct()" style="margin-top:10px;">Add Product</button>
 
   <a href="index.html" class="admin-btn">Back to Site</a>
+
+  .back-btn:hover {
+  background: white;
+  color: black;
+}
   
 </div>
 
@@ -263,6 +268,15 @@ document.addEventListener("keydown", (e) => {
     e.preventDefault();
     addProduct();
   }
+  window.addEventListener("beforeunload", function (e) {
+  const name = document.getElementById("name").value;
+  const price = document.getElementById("price").value;
+
+  if (name || price) {
+    e.preventDefault();
+    e.returnValue = "";
+  }
+});
 });
 </script>
 
