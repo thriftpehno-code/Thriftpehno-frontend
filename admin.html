@@ -286,23 +286,45 @@ window.addEventListener("beforeunload", function (e) {
       const trimmed = link.trim();
       if (!trimmed) return;
 
-      const img = document.createElement("img");
-      img.src = trimmed;
+     // wrapper (needed for positioning X)
+const wrapper = document.createElement("div");
+wrapper.style.position = "relative";
+wrapper.style.display = "inline-block";
 
-      img.style.width = "300px";
-      img.style.height = "300px";
-      img.style.objectFit = "cover";
-      img.style.border = "1px solid white";
-      img.style.cursor = "pointer";
+// image
+const img = document.createElement("img");
+img.src = trimmed;
 
-      img.onclick = () => {
-        const updatedLinks = links.filter(l => l.trim() !== trimmed);
-        document.getElementById("images").value = updatedLinks.join("\n");
-        document.getElementById("images").dispatchEvent(new Event("input"));
-      };
+img.style.width = "300px";
+img.style.height = "300px";
+img.style.objectFit = "cover";
+img.style.border = "1px solid white";
 
-      preview.appendChild(img);
-    });
+// ❌ remove button
+const removeBtn = document.createElement("div");
+removeBtn.innerText = "✕";
+
+removeBtn.style.position = "absolute";
+removeBtn.style.top = "5px";
+removeBtn.style.right = "5px";
+removeBtn.style.background = "black";
+removeBtn.style.color = "white";
+removeBtn.style.padding = "2px 6px";
+removeBtn.style.cursor = "pointer";
+removeBtn.style.fontSize = "12px";
+removeBtn.style.border = "1px solid white";
+
+// click remove
+removeBtn.onclick = () => {
+  const updatedLinks = links.filter(l => l.trim() !== trimmed);
+  document.getElementById("images").value = updatedLinks.join("\n");
+  document.getElementById("images").dispatchEvent(new Event("input"));
+};
+
+// assemble
+wrapper.appendChild(img);
+wrapper.appendChild(removeBtn);
+preview.appendChild(wrapper);    });
   });
 
 });
