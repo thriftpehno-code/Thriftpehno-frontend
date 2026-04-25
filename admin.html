@@ -39,19 +39,17 @@
     font-size: 12px;
     z-index: 999;
   }
-
-    .back-btn:hover {
+   .back-btn:hover {
   background: white;
   color: black;
   }
-  
   </style>
 
 </head>
 
 <body>
 
-  <a href="index.html" class="admin-btn">Back to Site</a>
+ <a href="index.html" class="back-btn">Back to Site</a>
 <h1>Admin Panel</h1>
 
 <input id="password" type="password" placeholder="Enter password" style="margin-bottom:15px;">
@@ -113,9 +111,9 @@
 
 <textarea id="images" placeholder="Paste one image link per line"></textarea>
 
- <button id="addBtn" onclick="addProduct()" style="margin-top:10px;">Add Product</button>
-
+<div id="imagePreview" style="display:flex; gap:10px; flex-wrap:wrap; margin-top:10px;"></div>  
   
+ <button id="addBtn" onclick="addProduct()" style="margin-top:10px;">Add Product</button>
 
 </div>
 
@@ -254,12 +252,16 @@ setTimeout(() => {
   btn.innerText = "Add Product";
   btn.disabled = false;
 }
+// ENTER KEY SUBMIT
 document.addEventListener("keydown", (e) => {
   if (e.key === "Enter" && document.getElementById("adminContent").style.display === "block") {
     e.preventDefault();
     addProduct();
   }
-  window.addEventListener("beforeunload", function (e) {
+});
+
+// LEAVE WARNING
+window.addEventListener("beforeunload", function (e) {
   const name = document.getElementById("name").value;
   const price = document.getElementById("price").value;
 
@@ -267,6 +269,26 @@ document.addEventListener("keydown", (e) => {
     e.preventDefault();
     e.returnValue = "";
   }
+
+  document.getElementById("images").addEventListener("input", function () {
+  const preview = document.getElementById("imagePreview");
+  const links = this.value.split("\n");
+
+  preview.innerHTML = "";
+
+  links.forEach(link => {
+    const trimmed = link.trim();
+    if (!trimmed) return;
+
+    const img = document.createElement("img");
+    img.src = trimmed;
+    img.style.width = "80px";
+    img.style.height = "80px";
+    img.style.objectFit = "cover";
+    img.style.border = "1px solid white";
+
+    preview.appendChild(img);
+  });
 });
 });
 </script>
