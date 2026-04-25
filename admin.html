@@ -282,7 +282,7 @@ window.addEventListener("beforeunload", function (e) {
 
     preview.innerHTML = "";
 
-    links.forEach(link => {
+    links.forEach((link, index) => {
       const trimmed = link.trim();
       if (!trimmed) return;
 
@@ -325,6 +325,25 @@ removeBtn.onclick = () => {
 // assemble
 wrapper.appendChild(img);
 wrapper.appendChild(removeBtn);
+      
+// 👇 NEW
+if (index === 0) {
+  const mainTag = document.createElement("div");
+  mainTag.innerText = "MAIN";
+
+  mainTag.style.position = "absolute";
+  mainTag.style.bottom = "5px";
+  mainTag.style.left = "5px";
+  mainTag.style.background = "white";
+  mainTag.style.color = "black";
+  mainTag.style.padding = "2px 6px";
+  mainTag.style.fontSize = "12px";
+  mainTag.style.borderRadius = "4px";
+
+  wrapper.appendChild(mainTag);
+}
+
+preview.appendChild(wrapper);
 preview.appendChild(wrapper);    });
   });
 
