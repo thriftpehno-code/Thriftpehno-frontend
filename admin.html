@@ -126,7 +126,8 @@ const ADMIN_PASSWORD = "1234";
 document.getElementById("password").addEventListener("input", (e) => {
   if (e.target.value === ADMIN_PASSWORD) {
     document.getElementById("adminContent").style.display = "block";
-
+  }
+});
  async function loadAdminProducts() {
 
   const response = await fetch(`${SUPABASE_URL}/rest/v1/products`, {
@@ -151,8 +152,7 @@ document.getElementById("password").addEventListener("input", (e) => {
     `;
   });
 }   
-  }
-});
+
 
 const SUPABASE_URL = "https://tyvbwwccwcgkafueroui.supabase.co";
 const SUPABASE_KEY = "sb_publishable_tKeUN6N774CqR8YucuDwSw_U35gepAu";
