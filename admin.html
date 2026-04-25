@@ -270,6 +270,26 @@ window.addEventListener("beforeunload", function (e) {
     e.returnValue = "";
   }
 });
+  document.getElementById("images").addEventListener("input", function () {
+  const preview = document.getElementById("imagePreview");
+  const links = this.value.split("\n");
+
+  preview.innerHTML = "";
+
+  links.forEach(link => {
+    const trimmed = link.trim();
+    if (!trimmed) return;
+
+    const img = document.createElement("img");
+    img.src = trimmed;
+    img.style.width = "80px";
+    img.style.height = "80px";
+    img.style.objectFit = "cover";
+    img.style.border = "1px solid white";
+
+    preview.appendChild(img);
+  });
+});
 </script>
 
 </body>
