@@ -363,7 +363,20 @@ removeBtn.onclick = () => {
 // assemble
 wrapper.appendChild(img);
 wrapper.appendChild(removeBtn);
-      
+     
+const numberTag = document.createElement("div");
+numberTag.innerText = index + 1;
+
+numberTag.style.position = "absolute";
+numberTag.style.top = "5px";
+numberTag.style.left = "5px";
+numberTag.style.background = "white";
+numberTag.style.color = "black";
+numberTag.style.padding = "2px 6px";
+numberTag.style.fontSize = "12px";
+numberTag.style.borderRadius = "4px";
+
+wrapper.appendChild(numberTag);      
 // 👇 NEW
 if (index === 0) {
   const mainTag = document.createElement("div");
