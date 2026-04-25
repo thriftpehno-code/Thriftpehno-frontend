@@ -300,6 +300,19 @@ img.style.height = "300px";
 img.style.objectFit = "cover";
 img.style.border = "1px solid white";
 
+img.onclick = () => {
+  // move clicked image to first position
+  const updatedLinks = [
+    trimmed,
+    ...links.filter(l => l.trim() !== trimmed)
+  ];
+
+  document.getElementById("images").value = updatedLinks.join("\n");
+
+  // refresh preview
+  document.getElementById("images").dispatchEvent(new Event("input"));
+};
+      
 // ❌ remove button
 const removeBtn = document.createElement("div");
 removeBtn.innerText = "✕";
