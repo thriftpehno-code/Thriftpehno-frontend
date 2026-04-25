@@ -296,6 +296,8 @@ img.onclick = () => {
 
   // trigger preview refresh
   document.getElementById("images").dispatchEvent(new Event("input"));
+   // ✅ THIS WAS MISSING
+  preview.appendChild(img);
 };
 });
 </script>
