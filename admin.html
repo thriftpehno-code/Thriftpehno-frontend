@@ -291,6 +291,31 @@ const wrapper = document.createElement("div");
 wrapper.style.position = "relative";
 wrapper.style.display = "inline-block";
 
+wrapper.draggable = true;
+wrapper.dataset.index = index;
+
+wrapper.ondragstart = (e) => {
+  e.dataTransfer.setData("text/plain", index);
+};
+
+wrapper.ondragover = (e) => {
+  e.preventDefault();
+};
+
+wrapper.ondrop = (e) => {
+  e.preventDefault();
+
+  const fromIndex = e.dataTransfer.getData("text/plain");
+  const toIndex = index;
+
+  const arr = links.map(l => l.trim()).filter(l => l);
+
+  const movedItem = arr.splice(fromIndex, 1)[0];
+  arr.splice(toIndex, 0, movedItem);
+
+  document.getElementById("images").value = arr.join("\n");
+  document.getElementById("images").dispatchEvent(new Event("input"));
+};      
 // image
 const img = document.createElement("img");
 img.src = trimmed;
