@@ -281,13 +281,22 @@ window.addEventListener("beforeunload", function (e) {
     if (!trimmed) return;
 
     const img = document.createElement("img");
-    img.src = trimmed;
+img.src = trimmed;
+
 img.style.width = "300px";
 img.style.height = "300px";
 img.style.objectFit = "cover";
 img.style.border = "1px solid white";
-    preview.appendChild(img);
-  });
+img.style.cursor = "pointer";
+
+// CLICK TO REMOVE
+img.onclick = () => {
+  const updatedLinks = links.filter(l => l.trim() !== trimmed);
+  document.getElementById("images").value = updatedLinks.join("\n");
+
+  // trigger preview refresh
+  document.getElementById("images").dispatchEvent(new Event("input"));
+};
 });
 </script>
 
