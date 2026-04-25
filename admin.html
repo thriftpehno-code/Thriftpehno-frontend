@@ -114,6 +114,8 @@
 <div id="imagePreview" style="display:flex; gap:15px; flex-wrap:wrap; margin-top:15px;"></div>
   
  <button id="addBtn" onclick="addProduct()" style="margin-top:10px;">Add Product</button>
+<h2 style="margin-top:40px;">Your Products</h2>
+<div id="productList"></div>
 
 </div>
 
@@ -396,6 +398,30 @@ if (index === 0) {
 
 preview.appendChild(wrapper);
 preview.appendChild(wrapper);    });
+    async function loadAdminProducts() {
+
+  const response = await fetch(`${SUPABASE_URL}/rest/v1/products`, {
+    headers: {
+      apikey: SUPABASE_KEY,
+      Authorization: `Bearer ${SUPABASE_KEY}`
+    }
+  });
+
+  const data = await response.json();
+
+  const list = document.getElementById("productList");
+  list.innerHTML = "";
+
+  data.forEach(product => {
+    list.innerHTML += `
+      <div style="border:1px solid white; padding:10px; margin-bottom:10px;">
+        <p>${product.name}</p>
+        <p>₹${product.price}</p>
+        <button onclick="deleteProduct(${product.id})">Delete</button>
+      </div>
+    `;
+  });
+}
   });
 
 });
