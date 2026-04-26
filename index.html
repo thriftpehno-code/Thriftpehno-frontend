@@ -87,6 +87,30 @@ async function loadProducts() {
 
   data.forEach(product => {
 
+    // SIZE FILTER
+    if (selectedSize && selectedSize !== "ALL") {
+
+      const m = Number(product.measurement);
+      if (isNaN(m)) return;
+
+      if (selectedSize.includes(">")) {
+        const min = Number(selectedSize.replace(">", ""));
+        if (m <= min) return;
+      }
+
+      else if (selectedSize.includes("<")) {
+        const max = Number(selectedSize.replace("<", ""));
+        if (m >= max) return;
+      }
+
+      else if (selectedSize.includes("-")) {
+        const range = selectedSize.match(/\d+/g);
+        const min = Number(range[0]);
+        const max = Number(range[1]);
+        if (m < min || m > max) return;
+      }
+    }
+
     let images = [];
 
     try {
@@ -110,6 +134,14 @@ async function loadProducts() {
       </a>
     `;
   });
+}
+
+// OPEN FILTER
+function openFilter(e, category) {
+  e.preventDefault();
+  selectedCategory = category;
+  selectedSize = null;
+  loadProducts();
 }
 
 // INITIAL LOAD
