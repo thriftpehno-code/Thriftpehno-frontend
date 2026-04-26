@@ -177,13 +177,7 @@ async function loadProducts() {
   });
 }
 
-// OPEN FILTER
-function openFilter(e, category) {
-  e.preventDefault();
-  selectedCategory = category;
-  selectedSize = null;
-  loadProducts();
-}
+
     function selectSize(size) {
   
   if (size === "ALL") {
