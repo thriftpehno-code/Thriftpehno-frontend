@@ -66,11 +66,45 @@ let selectedSize = null;
 
 function openFilter(e, category) {
   e.preventDefault();
+
   selectedCategory = category;
-  selectedSize = null;
-  loadProducts();
+
+  const panel = document.getElementById("sizePanel");
+
+  const rect = e.target.getBoundingClientRect();
+  panel.style.top = (rect.bottom + window.scrollY) + "px";
+  panel.style.left = (rect.left + window.scrollX) + "px";
+
+  let sizes = [];
+
+  if (category === "pants" || category === "ladies") {
+    sizes = [">25","26-27","28-29","30-31","32-33","34-35","36-37","38-39","40-41","42-43","44<","ALL"];
+  }
+
+  else if (category === "shirts" || category === "tshirts") {
+    sizes = ["XS (34-35)","S (36-37)","M (38-39)","L (40-41)","XL (42-43)","XXL (44-45)","ALL"];
+  }
+
+  else if (category === "activewear" || category === "jackets") {
+    sizes = ["S (34-37)","M (38-41)","L (40-41)","XL (42-43)","ALL"];
+  }
+
+  else {
+    sizes = ["ALL"];
+  }
+
+  panel.innerHTML = "";
+
+  sizes.forEach(size => {
+    panel.innerHTML += `
+      <div onclick="selectSize('${size}')" style="padding:5px; cursor:pointer;">
+        ${size}
+      </div>
+    `;
+  });
+
+  panel.style.display = "block";
 }    
-    
 // LOAD PRODUCTS
 async function loadProducts() {
 
