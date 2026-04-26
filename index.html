@@ -64,52 +64,7 @@
 const SUPABASE_URL = "https://tyvbwwccwcgkafueroui.supabase.co";
 const SUPABASE_KEY = "sb_publishable_tKeUN6N774CqR8YucuDwSw_U35gepAu";
 
-// GET ID FROM URL
-const params = new URLSearchParams(window.location.search);
-const productId = params.get("id");
 
-async function loadProduct() {
-
-  const response = await fetch(`${SUPABASE_URL}/rest/v1/products?id=eq.${productId}`, {
-    headers: {
-      apikey: SUPABASE_KEY,
-      Authorization: `Bearer ${SUPABASE_KEY}`
-    }
-  });
-
-  const data = await response.json();
-  const product = data[0];
-
-  if (!product) return;
-
-  let images = [];
-
-  try {
-    images = typeof product.images === "string"
-      ? JSON.parse(product.images)
-      : product.images;
-  } catch {
-    images = [];
-  }
-
-  const container = document.getElementById("productDetails");
-
-  container.innerHTML = `
-    <div style="max-width:800px; margin:auto;">
-
-      ${images.map(img => `
-        <img src="${img}" style="width:100%; margin-bottom:10px;">
-      `).join("")}
-
-      <h2>${product.name}</h2>
-      <p>₹${product.price}</p>
-      <p>Size: ${product.size || "-"}</p>
-
-    </div>
-  `;
-}
-
-loadProduct();
 
 </script>
 </body>
