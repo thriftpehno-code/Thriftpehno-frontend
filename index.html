@@ -101,7 +101,9 @@ panel.style.left = rect.left + "px";
 
  sizes.forEach(size => {
 
-  const isActive = (selectedSize === size);
+ const isActive =
+  (size === "ALL" && !selectedSize) ||
+  (selectedSize && selectedSize.trim() === size.trim());
 
   panel.innerHTML += `
     <div onclick="selectSize('${size}')" 
