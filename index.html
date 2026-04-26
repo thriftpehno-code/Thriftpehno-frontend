@@ -64,6 +64,13 @@ const SUPABASE_KEY = "sb_publishable_tKeUN6N774CqR8YucuDwSw_U35gepAu";
 let selectedCategory = null;
 let selectedSize = null;
 
+function openFilter(e, category) {
+  e.preventDefault();
+  selectedCategory = category;
+  selectedSize = null;
+  loadProducts();
+}    
+    
 // LOAD PRODUCTS
 async function loadProducts() {
 
