@@ -122,9 +122,9 @@
 <script>
 
 const ADMIN_PASSWORD = "1234";
-window.onload = function () {
+document.addEventListener("DOMContentLoaded", function () {
   document.getElementById("password").focus();
-};
+});
 
 // Auto unlock while typing
 document.getElementById("password").addEventListener("input", (e) => {
@@ -487,7 +487,6 @@ if (index === 0) {
 
 preview.appendChild(wrapper);   });
   });
-document.getElementById("password").focus();
 </script>
 
 </body>
