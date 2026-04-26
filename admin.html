@@ -359,9 +359,7 @@ window.addEventListener("beforeunload", function (e) {
    
  document.addEventListener("DOMContentLoaded", function () {
 
-  document.getElementById("password").focus();
-
-  const imagesInput = document.getElementById("images");
+   const imagesInput = document.getElementById("images");
 
   if (!imagesInput) return;
 
@@ -486,8 +484,8 @@ if (index === 0) {
 
 preview.appendChild(wrapper);   });
   });
-
 });
+document.addEventListener("DOMContentLoaded", function () {    
 </script>
 
 </body>
