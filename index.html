@@ -105,13 +105,17 @@ panel.style.left = rect.left + "px";
   panel.innerHTML += `
   <div onclick="selectSize('${size}')" 
        style="
-         padding:6px 8px;
+         padding:6px 10px;
          cursor:pointer;
          white-space:nowrap;
-       ">
+         transition:all 0.2s ease;
+       "
+       onmouseover="this.style.background='rgba(255,255,255,0.1)'"
+       onmouseout="this.style.background='transparent'"
+  >
     ${size}
   </div>
-`;  
+`;
   });
 
 panel.style.display = "block";
