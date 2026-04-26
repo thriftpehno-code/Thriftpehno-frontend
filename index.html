@@ -68,7 +68,10 @@ function openFilter(e, category) {
   e.preventDefault();
 
   selectedCategory = category;
+selectedSize = null;
 
+  // Step 1: show all pants
+  loadProducts();
   const panel = document.getElementById("sizePanel");
 
   const rect = e.target.getBoundingClientRect();
@@ -103,7 +106,6 @@ function openFilter(e, category) {
     `;
   });
 
-  panel.style.display = "block";
 }    
 // LOAD PRODUCTS
 async function loadProducts() {
