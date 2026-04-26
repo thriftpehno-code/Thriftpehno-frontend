@@ -150,6 +150,18 @@ function openFilter(e, category) {
   selectedSize = null;
   loadProducts();
 }
+    function selectSize(size) {
+  
+  if (size === "ALL") {
+    selectedSize = null;
+  } else {
+    selectedSize = size;
+  }
+  
+  document.getElementById("sizePanel").style.display = "none";
+  
+  loadProducts();
+}
 
 // INITIAL LOAD
 loadProducts();
