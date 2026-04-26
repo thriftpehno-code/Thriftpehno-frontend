@@ -102,11 +102,18 @@ selectedSize = null;
   panel.innerHTML = "";
 
   sizes.forEach(size => {
-  panel.innerHTML += `
-    <div onclick="selectSize('${size}')" style="padding:5px; cursor:pointer;">
-      ${size}
-    </div>
-  `;
+ panel.innerHTML += `
+  <div onclick="selectSize('${size}')" 
+       style="
+         padding:6px 8px;
+         cursor:pointer;
+         display:inline-block;
+         width:100%;
+         box-sizing:border-box;
+       ">
+    ${size}
+  </div>
+`;
 });
 
 panel.style.display = "block";
