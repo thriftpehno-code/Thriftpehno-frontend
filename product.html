@@ -173,6 +173,10 @@ async function loadProduct() {
 
   const params = new URLSearchParams(window.location.search);
   const productId = params.get("id");
+ if (!productId) {
+  return;
+}
+ 
 if (!productId) {
   window.location.href = "index.html";
   return;
