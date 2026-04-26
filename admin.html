@@ -122,13 +122,20 @@
 <script>
 
 const ADMIN_PASSWORD = "1234";
-  document.getElementById("password").addEventListener("input", (e) => {
-  if (e.target.value === ADMIN_PASSWORD) {
-    document.getElementById("adminContent").style.display = "block";
+document.getElementById("password").addEventListener("keydown", (e) => {
+  if (e.key === "Enter") {
 
-    loadAdminProducts();
+    const value = e.target.value;
+
+    if (value === ADMIN_PASSWORD) {
+      document.getElementById("adminContent").style.display = "block";
+      loadAdminProducts();
+    } else {
+      alert("Wrong password");
+    }
   }
 });
+  
   async function loadAdminProducts() {
 
   const response = await fetch(`${SUPABASE_URL}/rest/v1/products`, {
@@ -341,7 +348,7 @@ window.addEventListener("beforeunload", function (e) {
    
    
   document.addEventListener("DOMContentLoaded", function () {
-
+document.getElementById("password").focus();   
   const imagesInput = document.getElementById("images");
 
   if (!imagesInput) return;
