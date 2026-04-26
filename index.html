@@ -190,15 +190,26 @@ async function loadProducts() {
     const imgSrc = images[0] || "";
 
     grid.innerHTML += `
-      <a href="product.html?id=${product.id}" style="text-decoration:none; color:white;">
-        <div>
-          <img src="${imgSrc}" style="width:100%;">
-          <p>${product.name}</p>
-          <p>₹${product.price}</p>
-          <p>Size: ${product.size || "-"}</p>
-        </div>
-      </a>
-    `;
+  <a href="product.html?id=${product.id}" style="text-decoration:none; color:white;">
+    <div style="display:flex; flex-direction:column; gap:6px;">
+
+      <img src="${imgSrc}" style="width:100%; border-radius:4px;">
+
+      <p style="font-size:13px; opacity:0.8; margin:0;">
+        ${product.name}
+      </p>
+
+      <p style="font-size:14px; font-weight:500; margin:0;">
+        ₹${product.price}
+      </p>
+
+      <p style="font-size:11px; opacity:0.5; margin:0;">
+        Size: ${product.size || "-"}
+      </p>
+
+    </div>
+  </a>
+`;
   });
 }
 
