@@ -70,17 +70,13 @@ function openFilter(e, category) {
 
   selectedCategory = category;
 
-  // Step 1: show all pants
-  loadProducts();
   const panel = document.getElementById("sizePanel");
 
-const rect = e.target.getBoundingClientRect();
+  const rect = e.target.getBoundingClientRect();
+  panel.style.top = rect.bottom + "px";
+  panel.style.left = rect.left + "px";
 
-panel.style.top = rect.bottom + "px";
-panel.style.left = rect.left + "px";
-  
   let sizes = [];
-
   if (category === "pants" || category === "ladies") {
     sizes = [">25","26-27","28-29","30-31","32-33","34-35","36-37","38-39","40-41","42-43","44<","ALL"];
   }
