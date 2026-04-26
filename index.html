@@ -22,10 +22,7 @@
 <body style="margin:0; background:black; color:white; font-family:Arial, sans-serif;">
 <!-- update -->
 <a href="admin.html" class="admin-btn">Admin</a>
-
-  
-  <div id="productDetails" style="padding:20px;"></div>
-  
+ 
   <!-- HEADER -->
   <div style="padding:40px; text-align:center;">
     <h1 style="font-size:50px; letter-spacing:5px;">THRIFT PEHNO</h1>
@@ -64,7 +61,59 @@
 const SUPABASE_URL = "https://tyvbwwccwcgkafueroui.supabase.co";
 const SUPABASE_KEY = "sb_publishable_tKeUN6N774CqR8YucuDwSw_U35gepAu";
 
+let selectedCategory = null;
+let selectedSize = null;
 
+// LOAD PRODUCTS
+async function loadProducts() {
+
+  let url = `${SUPABASE_URL}/rest/v1/products`;
+
+  if (selectedCategory) {
+    url += `?category=ilike.*${selectedCategory}*`;
+  }
+
+  const response = await fetch(url, {
+    headers: {
+      apikey: SUPABASE_KEY,
+      Authorization: `Bearer ${SUPABASE_KEY}`
+    }
+  });
+
+  const data = await response.json();
+
+  const grid = document.getElementById("productGrid");
+  grid.innerHTML = "";
+
+  data.forEach(product => {
+
+    let images = [];
+
+    try {
+      images = typeof product.images === "string"
+        ? JSON.parse(product.images)
+        : product.images;
+    } catch {
+      images = [];
+    }
+
+    const imgSrc = images[0] || "";
+
+    grid.innerHTML += `
+      <a href="product.html?id=${product.id}" style="text-decoration:none; color:white;">
+        <div>
+          <img src="${imgSrc}" style="width:100%;">
+          <p>${product.name}</p>
+          <p>₹${product.price}</p>
+          <p>Size: ${product.size || "-"}</p>
+        </div>
+      </a>
+    `;
+  });
+}
+
+// INITIAL LOAD
+loadProducts();
 
 </script>
 </body>
