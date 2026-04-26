@@ -122,6 +122,17 @@
 <script>
 
 const ADMIN_PASSWORD = "1234";
+const ADMIN_PASSWORD = "1234";
+
+// Auto unlock while typing
+document.getElementById("password").addEventListener("input", (e) => {
+  if (e.target.value === ADMIN_PASSWORD) {
+    document.getElementById("adminContent").style.display = "block";
+    loadAdminProducts();
+  }
+});
+
+// Enter key support
 document.getElementById("password").addEventListener("keydown", (e) => {
   if (e.key === "Enter") {
 
