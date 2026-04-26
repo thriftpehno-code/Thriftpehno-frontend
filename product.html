@@ -146,18 +146,8 @@
 <p id="productSize"></p>
 
       <!-- BUTTONS -->
-      <div class="buttons">
-
-        <a href="https://wa.me/919370820852?text=Hi%20I%20want%20to%20buy%20Diesel%20Industrial%20Denim%20(Size%2034-35)%20for%20₹2499.%20https://www.instagram.com/p/DVJdJx4DLOg/">
-          Buy on WhatsApp
-        </a>
-
-        <a href="https://www.instagram.com/p/DVJdJx4DLOg/" target="_blank">
-          View on Instagram
-        </a>
-
-      </div>
-
+      <div class="buttons" id="actionButtons"></div>
+   
     <div class="gallery"></div>
 
     </div>
@@ -202,11 +192,25 @@ if (!data || data.length === 0) {
 }
 
 const product = data[0];
-
   // SET DATA
   document.getElementById("productName").innerText = product.name;
   document.getElementById("productPrice").innerText = "Price: " + product.price;
   document.getElementById("productSize").innerText = "Size: " + product.size;
+
+ const message = `Hi, I want this product:\n\n${product.name}\nPrice: ₹${product.price}\nSize: ${product.size}`;
+
+const encodedMessage = encodeURIComponent(message);
+
+const whatsappLink = `https://wa.me/919370820852?text=${encodedMessage}`;
+
+const buttons = document.getElementById("actionButtons");
+
+buttons.innerHTML = `
+  <a href="${whatsappLink}" target="_blank">
+    Buy on WhatsApp
+  </a>
+`;
+
 
 let images = [];
 
