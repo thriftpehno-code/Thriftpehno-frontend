@@ -22,13 +22,16 @@
 <body style="margin:0; background:black; color:white; font-family:Arial, sans-serif;">
 <!-- update -->
 <a href="admin.html" class="admin-btn">Admin</a>
+
+  
+  <div id="productDetails" style="padding:20px;"></div>
   
   <!-- HEADER -->
   <div style="padding:40px; text-align:center;">
     <h1 style="font-size:50px; letter-spacing:5px;">THRIFT PEHNO</h1>
     <p style="opacity:0.7;">Minimal. Clean. Timeless.</p>
   </div>
-    <div id="products" style="display:flex; gap:20px; flex-wrap:wrap;"></div>
+
   
   <!-- COLLECTIONS -->
   <h2 style="text-align:center;">Collections</h2>
@@ -58,24 +61,16 @@
 
   <script>
 
-let selectedCategory = null;
-let selectedSize = null;
-
 const SUPABASE_URL = "https://tyvbwwccwcgkafueroui.supabase.co";
 const SUPABASE_KEY = "sb_publishable_tKeUN6N774CqR8YucuDwSw_U35gepAu";
 
-// LOAD PRODUCTS
-async function loadProducts() {
+// GET ID FROM URL
+const params = new URLSearchParams(window.location.search);
+const productId = params.get("id");
 
-  const category = selectedCategory;
+async function loadProduct() {
 
-  let url = `${SUPABASE_URL}/rest/v1/products`;
-
-  if (category) {
-    url += `?category=ilike.${category}`;
-  }
-
-  const response = await fetch(url, {
+  const response = await fetch(`${SUPABASE_URL}/rest/v1/products?id=eq.${productId}`, {
     headers: {
       apikey: SUPABASE_KEY,
       Authorization: `Bearer ${SUPABASE_KEY}`
@@ -83,153 +78,38 @@ async function loadProducts() {
   });
 
   const data = await response.json();
+  const product = data[0];
 
-  const grid = document.getElementById("productGrid");
-  grid.innerHTML = "";
+  if (!product) return;
 
-  data.forEach(product => {
-    console.log("PRODUCT:", product.name, product.measurement);
+  let images = [];
 
-    // SIZE FILTER
-if (selectedSize && selectedSize !== "ALL") {
-
- const m = Number(product.measurement);
-if (m === null || m === undefined || isNaN(m)) return;
-
-  // >25
-  if (selectedSize.includes(">")) {
-    const min = Number(selectedSize.replace(">", ""));
-    if (m <= min) return;
+  try {
+    images = typeof product.images === "string"
+      ? JSON.parse(product.images)
+      : product.images;
+  } catch {
+    images = [];
   }
 
-  // 44<
-  else if (selectedSize.includes("<")) {
-    const max = Number(selectedSize.replace("<", ""));
-    if (m >= max) return;
-  }
+  const container = document.getElementById("productDetails");
 
-  // 30-31 OR M (38-41)
-    
-  else if (selectedSize.includes("-")) {
-const range = selectedSize.match(/\d+/g);
-console.log("CHECKING RANGE:", selectedSize, "against", m);
-                                     
-    const min = Number(range[0]);
-    const max = Number(range[1]);
+  container.innerHTML = `
+    <div style="max-width:800px; margin:auto;">
 
-    if (m < min || m > max) return;
-  }
+      ${images.map(img => `
+        <img src="${img}" style="width:100%; margin-bottom:10px;">
+      `).join("")}
 
-  // fallback
-  else {
-    if (product.size !== selectedSize) return;
-  }
-}    let imgSrc = "";
+      <h2>${product.name}</h2>
+      <p>₹${product.price}</p>
+      <p>Size: ${product.size || "-"}</p>
 
-    try {
-      if (product.images && product.images.trim().startsWith("[")) {
-        imgSrc = JSON.parse(product.images)[0];
-      } else {
-        imgSrc = product.images;
-      }
-    } catch (e) {
-      console.error("Bad JSON:", product.images);
-      imgSrc = "";
-    }
-
-    grid.innerHTML += `
-      <a href="product.html?id=${product.id}" style="text-decoration:none; color:white;">
-        <div>
-          <img src="${imgSrc}" style="width:100%;">
-          <p>${product.name}</p>
-          <p>₹${product.price}</p>
-          <p>Size: ${product.size || "-"}</p>
-        </div>
-      </a>
-    `;
-  });
+    </div>
+  `;
 }
 
-
-// OPEN FLOATING PANEL
-function openFilter(e, category) {
-  e.preventDefault();
-
-  selectedCategory = category;
-
-  const panel = document.getElementById("sizePanel");
-
-  const rect = e.target.getBoundingClientRect();
-panel.style.top = (rect.bottom + window.scrollY) + "px";
-panel.style.left = (rect.left + window.scrollX) + "px";
-  
-let sizes = [];
-
-if (category === "pants") {
-  sizes = [">25","26-27","28-29","30-31","32-33","34-35","36-37","38-39","40-41","42-43","44<","ALL"];
-}
-
-else if (category === "ladies") {
-  sizes = [">25","26-27","28-29","30-31","32-33","34-35","36-37","38-39","40-41","42-43","44<","ALL"];
-}
-
-else if (category === "shirts" || category === "tshirts") {
-  sizes = ["XS (34-35)","S (36-37)","M (38-39)","L (40-41)","XL (42-43)","XXL (44-45)","XXXL (46-47)","XXXXL (48-51)","ALL"];
-}
-
-else if (category === "activewear") {
-  sizes = ["XS (>33)","S (34-37)","M (38-41)","L (42-45)","XL (46-49)","XXL (50-53)","XXXL (54-57)","ALL"];
-}
-
-else if (category === "jackets") {
-  sizes = ["S (34-37)","M (38-41)","L (42-45)","XL (46-49)","XXL (50-53)","XXXL (54-57)","ALL"];
-}
-
-else {
-  sizes = ["ALL"];
-}
-
-  panel.innerHTML = "";
-
-  sizes.forEach(size => {
-    panel.innerHTML += `
-      <div onclick="selectSize('${size}')" style="padding:5px; cursor:pointer;">
-        ${size}
-      </div>
-    `;
-  });
-
-  panel.style.display = "block";
-}
-
-
-// SELECT SIZE
-function selectSize(size) {
-
-  if (size === "ALL") {
-    selectedSize = null;
-  } else {
-    selectedSize = size;
-    console.log("SELECTED SIZE:", selectedSize);
-  }
-
-  document.getElementById("sizePanel").style.display = "none";
-
-  loadProducts();
-}
-
-// CLOSE PANEL WHEN CLICK OUTSIDE
-document.addEventListener("click", (e) => {
-  const panel = document.getElementById("sizePanel");
-
-  if (!panel.contains(e.target) && !e.target.closest("a")) {
-    panel.style.display = "none";
-  }
-});
-
-
-// INITIAL LOAD
-loadProducts();
+loadProduct();
 
 </script>
 </body>
