@@ -96,19 +96,18 @@ selectedSize = null;
   panel.innerHTML = "";
 
   sizes.forEach(size => {
- panel.innerHTML += `
+
+  panel.innerHTML += `
   <div onclick="selectSize('${size}')" 
        style="
          padding:6px 8px;
          cursor:pointer;
-         display:inline-block;
-         width:100%;
-         box-sizing:border-box;
+         white-space:nowrap;
        ">
     ${size}
   </div>
-`;
-});
+`;  
+  });
 
 panel.style.display = "block";
 
