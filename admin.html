@@ -357,11 +357,14 @@ window.addEventListener("beforeunload", function (e) {
 });
    
    
-  document.addEventListener("DOMContentLoaded", function () {
-document.getElementById("password").focus();   
+ document.addEventListener("DOMContentLoaded", function () {
+
+  document.getElementById("password").focus();
+
   const imagesInput = document.getElementById("images");
 
   if (!imagesInput) return;
+
 
   imagesInput.addEventListener("input", function () {
     const preview = document.getElementById("imagePreview");
