@@ -145,33 +145,39 @@ const ADMIN_PASSWORD = "1234";
 
 data.forEach(product => {
 
-  let imgSrc = "";
+  let imagesArray = [];
 
   try {
-    if (product.images && product.images.startsWith("[")) {
-      imgSrc = JSON.parse(product.images)[0];
-    } else {
-      imgSrc = product.images;
+    if (Array.isArray(product.images)) {
+      imagesArray = product.images;
+    } else if (typeof product.images === "string") {
+      imagesArray = JSON.parse(product.images);
     }
   } catch (e) {
-    imgSrc = "";
+    imagesArray = [];
   }
 
-  list.innerHTML += `
-    <div style="border:1px solid white; padding:10px; margin-bottom:10px; display:flex; gap:15px; align-items:center;">
-      
-      <img src="${imgSrc}" style="width:80px; height:80px; object-fit:cover; border:1px solid white;">
+  // build images HTML
+  let imagesHTML = imagesArray.map(img => `
+    <img src="${img}" 
+         style="width:60px; height:60px; object-fit:cover; border:1px solid white;">
+  `).join("");
 
-      <div>
-        <p>${product.name}</p>
-        <p>₹${product.price}</p>
-        <button onclick="deleteProduct(${product.id})">Delete</button>
+  list.innerHTML += `
+    <div style="border:1px solid white; padding:10px; margin-bottom:10px;">
+      
+      <div style="display:flex; gap:10px; flex-wrap:wrap; margin-bottom:10px;">
+        ${imagesHTML}
       </div>
+
+      <p>${product.name}</p>
+      <p>₹${product.price}</p>
+
+      <button onclick="deleteProduct(${product.id})">Delete</button>
 
     </div>
   `;
 });
-}   
 async function deleteProduct(id) {
 
   const confirmDelete = confirm("Are you sure you want to delete this product?");
