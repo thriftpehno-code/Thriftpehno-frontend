@@ -77,10 +77,6 @@ selectedSize = null;
   loadProducts();
   const panel = document.getElementById("sizePanel");
 
-  const rect = e.target.getBoundingClientRect();
-  panel.style.top = (rect.bottom + window.scrollY) + "px";
-  panel.style.left = (rect.left + window.scrollX) + "px";
-
   let sizes = [];
 
   if (category === "pants" || category === "ladies") {
