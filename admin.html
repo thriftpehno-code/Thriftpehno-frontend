@@ -143,19 +143,40 @@ const ADMIN_PASSWORD = "1234";
   const list = document.getElementById("productList");
   list.innerHTML = "";
 
-  data.forEach(product => {
-    list.innerHTML += `
-      <div style="border:1px solid white; padding:10px; margin-bottom:10px;">
+data.forEach(product => {
+
+  let imgSrc = "";
+
+  try {
+    if (product.images && product.images.startsWith("[")) {
+      imgSrc = JSON.parse(product.images)[0];
+    } else {
+      imgSrc = product.images;
+    }
+  } catch (e) {
+    imgSrc = "";
+  }
+
+  list.innerHTML += `
+    <div style="border:1px solid white; padding:10px; margin-bottom:10px; display:flex; gap:15px; align-items:center;">
+      
+      <img src="${imgSrc}" style="width:80px; height:80px; object-fit:cover; border:1px solid white;">
+
+      <div>
         <p>${product.name}</p>
         <p>₹${product.price}</p>
         <button onclick="deleteProduct(${product.id})">Delete</button>
       </div>
-    `;
-  });
+
+    </div>
+  `;
+});
 }   
 async function deleteProduct(id) {
 
-  if (!confirm("Delete this product?")) return;
+  const confirmDelete = confirm("Are you sure you want to delete this product?");
+
+  if (!confirmDelete) return;
 
   await fetch(`${SUPABASE_URL}/rest/v1/products?id=eq.${id}`, {
     method: "DELETE",
@@ -165,7 +186,7 @@ async function deleteProduct(id) {
     }
   });
 
-  loadAdminProducts(); // refresh list
+  loadAdminProducts();
 }
 
 const SUPABASE_URL = "https://tyvbwwccwcgkafueroui.supabase.co";
