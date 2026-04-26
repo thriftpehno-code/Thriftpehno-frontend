@@ -100,27 +100,29 @@ panel.style.left = rect.left + "px";
 
   panel.innerHTML = "";
 
-  sizes.forEach(size => {
+ sizes.forEach(size => {
+
+  const isActive = (selectedSize === size);
 
   panel.innerHTML += `
-  <div onclick="selectSize('${size}')" 
-       style="
-         padding:8px 12px;
-         cursor:pointer;
-         white-space:nowrap;
-         transition:all 0.2s ease;
-         font-size:13px;
-         letter-spacing:1px;
-         text-transform:uppercase;
-       "
-       onmouseover="this.style.background='rgba(255,255,255,0.1)'"
-       onmouseout="this.style.background='transparent'"
-  >
-    ${size}
-  </div>
-`;
-  });
-
+    <div onclick="selectSize('${size}')" 
+         style="
+           padding:8px 12px;
+           cursor:pointer;
+           white-space:nowrap;
+           transition:all 0.2s ease;
+           font-size:13px;
+           letter-spacing:1px;
+           text-transform:uppercase;
+           background:${isActive ? "rgba(255,255,255,0.15)" : "transparent"};
+         "
+         onmouseover="this.style.background='rgba(255,255,255,0.1)'"
+         onmouseout="this.style.background='${isActive ? "rgba(255,255,255,0.15)" : "transparent"}'"
+    >
+      ${size}
+    </div>
+  `;
+});
 panel.style.display = "block";
 
 }    
