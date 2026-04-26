@@ -149,7 +149,7 @@ document.getElementById("password").addEventListener("keydown", (e) => {
   }
 });
   
-  async function loadAdminProducts() {
+async function loadAdminProducts() {
 
   const response = await fetch(`${SUPABASE_URL}/rest/v1/products`, {
     headers: {
@@ -163,41 +163,43 @@ document.getElementById("password").addEventListener("keydown", (e) => {
   const list = document.getElementById("productList");
   list.innerHTML = "";
 
-data.forEach(product => {
+  data.forEach(product => {
 
-  let imagesArray = [];
+    let imagesArray = [];
 
-  try {
-    if (Array.isArray(product.images)) {
-      imagesArray = product.images;
-    } else if (typeof product.images === "string") {
-      imagesArray = JSON.parse(product.images);
+    try {
+      if (Array.isArray(product.images)) {
+        imagesArray = product.images;
+      } else if (typeof product.images === "string") {
+        imagesArray = JSON.parse(product.images);
+      }
+    } catch (e) {
+      imagesArray = [];
     }
-  } catch (e) {
-    imagesArray = [];
-  }
 
-  // build images HTML
-  let imagesHTML = imagesArray.map(img => `
-    <img src="${img}" 
-         style="width:60px; height:60px; object-fit:cover; border:1px solid white;">
-  `).join("");
+    let imagesHTML = imagesArray.map(img => `
+      <img src="${img}" 
+           style="width:60px; height:60px; object-fit:cover; border:1px solid white;">
+    `).join("");
 
-  list.innerHTML += `
-    <div style="border:1px solid white; padding:10px; margin-bottom:10px;">
-      
-      <div style="display:flex; gap:10px; flex-wrap:wrap; margin-bottom:10px;">
-        ${imagesHTML}
+    list.innerHTML += `
+      <div style="border:1px solid white; padding:10px; margin-bottom:10px;">
+        
+        <div style="display:flex; gap:10px; flex-wrap:wrap; margin-bottom:10px;">
+          ${imagesHTML}
+        </div>
+
+        <p>${product.name}</p>
+        <p>₹${product.price}</p>
+
+        <button onclick="deleteProduct(${product.id})">Delete</button>
+
       </div>
+    `;
+  });
+}
 
-      <p>${product.name}</p>
-      <p>₹${product.price}</p>
-
-      <button onclick="deleteProduct(${product.id})">Delete</button>
-
-    </div>
-  `;
-});
+// 👇 MOVE THIS OUTSIDE
 async function deleteProduct(id) {
 
   const confirmDelete = confirm("Are you sure you want to delete this product?");
@@ -214,6 +216,7 @@ async function deleteProduct(id) {
 
   loadAdminProducts();
 }
+  
 
 const SUPABASE_URL = "https://tyvbwwccwcgkafueroui.supabase.co";
 const SUPABASE_KEY = "sb_publishable_tKeUN6N774CqR8YucuDwSw_U35gepAu";
