@@ -210,11 +210,24 @@ const whatsappLink = `https://wa.me/919370820852?text=${encodedMessage}`;
 const buttons = document.getElementById("actionButtons");
 
 buttons.innerHTML = `
-  <a href="${whatsappLink}" target="_blank">
-    Buy on WhatsApp
+  <a href="${whatsappLink}" target="_blank"
+     style="
+       display:inline-block;
+       padding:12px 20px;
+       background:white;
+       color:black;
+       text-decoration:none;
+       font-size:14px;
+       letter-spacing:1px;
+       margin-top:10px;
+       transition:all 0.2s ease;
+     "
+     onmouseover="this.style.opacity='0.8'"
+     onmouseout="this.style.opacity='1'"
+  >
+    BUY ON WHATSAPP
   </a>
 `;
-
 
 let images = [];
 
