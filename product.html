@@ -268,7 +268,7 @@ if (!data || data.length === 0) {
 const product = data[0];
   // SET DATA
   document.getElementById("productName").innerText = product.name;
-  document.getElementById("productPrice").innerText = "Price: " + product.price;
+  document.getElementById("productPrice").innerText = "₹" + product.price;
   document.getElementById("productSize").innerText = "Size: " + product.size;
  
   document.getElementById("productSize").innerHTML += `
