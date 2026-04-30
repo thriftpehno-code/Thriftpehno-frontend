@@ -238,13 +238,35 @@ onmouseout="this.style.transform='translateY(0)'"
   Easy returns • Trusted seller
 </p>
 
-      <p style="
-  font-size:11px;
-  letter-spacing:1px;
-  opacity:0.6;
-  margin:4px 0 0 0;
-">
-  VIEW →
+      <p style="display:flex; gap:10px; margin-top:6px;">
+
+  <span style="
+    font-size:11px;
+    letter-spacing:1px;
+    opacity:0.6;
+  ">
+    VIEW →
+  </span>
+
+  <a href="https://wa.me/919370820852?text=${encodeURIComponent(
+`Hi, I want to buy this item:
+
+Name: ${product.name}
+Price: ₹${product.price}
+Size: ${product.size}
+
+Is this still available?`
+)}"
+  target="_blank"
+  style="
+    font-size:11px;
+    color:#25D366;
+    text-decoration:none;
+    font-weight:500;
+  ">
+    BUY
+  </a>
+
 </p>
 
     </div>
