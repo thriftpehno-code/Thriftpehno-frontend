@@ -134,7 +134,20 @@
   <!-- IMAGE WITH OVERLAY -->
   <div style="position: relative;">
 
-    <img id="mainImage" class="main-img" src="">
+   <div id="imageWrapper" style="position:relative;">
+
+  <div id="imgLoader" style="
+    position:absolute;
+    top:0;
+    left:0;
+    width:100%;
+    height:100%;
+    background:#111;
+  "></div>
+
+  <img id="mainImage" class="main-img" src="" style="opacity:0;">
+
+</div>
 
     <p style="
       position:absolute;
@@ -364,12 +377,27 @@ mainImage.addEventListener("click", () => {
 });
 // show first image
 if (images.length > 0) {
-  mainImage.src = images[0];
+ 
+ mainImage.onload = () => {
+ document.getElementById("imgLoader").style.display = "none";
+ mainImage.style.opacity = "1";
+};
+
+mainImage.src = images[0];
 }
 
 // NEXT BUTTON →
 document.getElementById("nextBtn").addEventListener("click", () => {
   currentIndex = (currentIndex + 1) % images.length;
+
+  mainImage.style.opacity = "0";
+  document.getElementById("imgLoader").style.display = "block";
+
+  mainImage.onload = () => {
+    document.getElementById("imgLoader").style.display = "none";
+    mainImage.style.opacity = "1";
+  };
+
   mainImage.src = images[currentIndex];
 
   // reset thumbnails
@@ -389,8 +417,30 @@ document.getElementById("nextBtn").addEventListener("click", () => {
 // PREVIOUS BUTTON ←
 document.getElementById("prevBtn").addEventListener("click", () => {
   currentIndex = (currentIndex - 1 + images.length) % images.length;
+
+  mainImage.style.opacity = "0";
+  document.getElementById("imgLoader").style.display = "block";
+
+  mainImage.onload = () => {
+    document.getElementById("imgLoader").style.display = "none";
+    mainImage.style.opacity = "1";
+  };
+
   mainImage.src = images[currentIndex];
 
+  // reset thumbnails
+  document.querySelectorAll(".gallery img").forEach(img => {
+    img.style.opacity = "0.6";
+    img.style.border = "1px solid transparent";
+  });
+
+  // highlight active
+  const activeThumb = document.querySelectorAll(".gallery img")[currentIndex];
+  if (activeThumb) {
+    activeThumb.style.opacity = "1";
+    activeThumb.style.border = "1px solid white";
+  }
+});
   // reset thumbnails
   document.querySelectorAll(".gallery img").forEach(img => {
     img.style.opacity = "0.6";
