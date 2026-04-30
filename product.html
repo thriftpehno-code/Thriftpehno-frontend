@@ -237,15 +237,26 @@ buttons.innerHTML = `
        font-size:14px;
        letter-spacing:1px;
        margin-top:10px;
-       transition:all 0.2s ease;
-     "
-     onmouseover="this.style.opacity='0.8'"
-     onmouseout="this.style.opacity='1'"
-  >
+     ">
     BUY ON WHATSAPP
   </a>
-`;
 
+  <button id="payBtn"
+    style="
+      display:inline-block;
+      padding:12px 20px;
+      background:#000;
+      color:#fff;
+      border:none;
+      font-size:14px;
+      letter-spacing:1px;
+      margin-top:10px;
+      margin-left:10px;
+      cursor:pointer;
+    ">
+    PAY NOW
+  </button>
+`;
 let images = [];
 
 if (product.images) {
