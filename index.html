@@ -141,7 +141,10 @@ panel.style.display = "block";
 }    
 // LOAD PRODUCTS
 async function loadProducts() {
+  const grid = document.getElementById("productGrid");
 
+  try {
+    
   let url = `${SUPABASE_URL}/rest/v1/products`;
 
   if (selectedCategory) {
@@ -157,7 +160,6 @@ async function loadProducts() {
 
   const data = await response.json();
 
-  const grid = document.getElementById("productGrid");
   grid.innerHTML = "";
 
   data.forEach(product => {
@@ -240,8 +242,13 @@ onmouseout="this.style.transform='translateY(0)'"
     </div>
   </a>
 `;
-  });
-}
+});
+
+  } catch (error) {
+    grid.innerHTML = "Failed to load products. Try again.";
+    console.error(error);
+  }
+}  
 
 
     function selectSize(size) {
