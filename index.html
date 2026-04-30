@@ -145,7 +145,7 @@ async function loadProducts() {
 
   try {
     
-  let url = `${SUPABASE_URL}/rest/v1/products123`;
+  let url = `${SUPABASE_URL}/rest/v1/products`;
 
   if (selectedCategory) {
     url += `?category=ilike.*${selectedCategory}*`;
