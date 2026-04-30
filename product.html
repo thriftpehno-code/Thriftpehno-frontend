@@ -471,6 +471,15 @@ images.forEach((img, index) => {
 
   imageEl.addEventListener("click", () => {
     currentIndex = index;
+
+    mainImage.style.opacity = "0";
+    document.getElementById("imgLoader").style.display = "block";
+
+    mainImage.onload = () => {
+      document.getElementById("imgLoader").style.display = "none";
+      mainImage.style.opacity = "1";
+    };
+
     mainImage.src = images[currentIndex];
 
     // reset all thumbnails
