@@ -441,19 +441,6 @@ document.getElementById("prevBtn").addEventListener("click", () => {
     activeThumb.style.border = "1px solid white";
   }
 });
-  // reset thumbnails
-  document.querySelectorAll(".gallery img").forEach(img => {
-    img.style.opacity = "0.6";
-    img.style.border = "1px solid transparent";
-  });
-
-  // highlight active
-  const activeThumb = document.querySelectorAll(".gallery img")[currentIndex];
-  if (activeThumb) {
-    activeThumb.style.opacity = "1";
-    activeThumb.style.border = "1px solid white";
-  }
-});
 
 // GALLERY
 const gallery = document.querySelector(".gallery");
