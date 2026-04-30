@@ -336,12 +336,38 @@ if (images.length > 0) {
 document.getElementById("nextBtn").addEventListener("click", () => {
   currentIndex = (currentIndex + 1) % images.length;
   mainImage.src = images[currentIndex];
+
+  // reset thumbnails
+  document.querySelectorAll(".gallery img").forEach(img => {
+    img.style.opacity = "0.6";
+    img.style.border = "1px solid transparent";
+  });
+
+  // highlight active
+  const activeThumb = document.querySelectorAll(".gallery img")[currentIndex];
+  if (activeThumb) {
+    activeThumb.style.opacity = "1";
+    activeThumb.style.border = "1px solid white";
+  }
 });
 
 // PREVIOUS BUTTON ←
 document.getElementById("prevBtn").addEventListener("click", () => {
   currentIndex = (currentIndex - 1 + images.length) % images.length;
   mainImage.src = images[currentIndex];
+
+  // reset thumbnails
+  document.querySelectorAll(".gallery img").forEach(img => {
+    img.style.opacity = "0.6";
+    img.style.border = "1px solid transparent";
+  });
+
+  // highlight active
+  const activeThumb = document.querySelectorAll(".gallery img")[currentIndex];
+  if (activeThumb) {
+    activeThumb.style.opacity = "1";
+    activeThumb.style.border = "1px solid white";
+  }
 });
 
 // GALLERY
@@ -352,7 +378,7 @@ images.forEach((img, index) => {
   const imageEl = document.createElement("img");
   imageEl.src = img;
 
-  // 👇 highlight active
+  // highlight first image
   if (index === 0) {
     imageEl.style.opacity = "1";
     imageEl.style.border = "1px solid white";
