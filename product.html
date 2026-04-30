@@ -42,9 +42,18 @@
       margin-top: 20px;
     }
 
-    .gallery img {
-      height: 100px;
-    }
+   .gallery img {
+  height: 100px;
+  cursor: pointer;
+  opacity: 0.6;
+  transition: all 0.2s ease;
+  border: 1px solid transparent;
+}
+
+.gallery img:hover {
+  opacity: 1;
+  border: 1px solid white;
+}
 
     .buttons {
       margin-top: 15px;
