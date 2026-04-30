@@ -352,9 +352,25 @@ images.forEach((img, index) => {
   const imageEl = document.createElement("img");
   imageEl.src = img;
 
+  // 👇 highlight active
+  if (index === 0) {
+    imageEl.style.opacity = "1";
+    imageEl.style.border = "1px solid white";
+  }
+
   imageEl.addEventListener("click", () => {
     currentIndex = index;
     mainImage.src = images[currentIndex];
+
+    // reset all thumbnails
+    document.querySelectorAll(".gallery img").forEach(img => {
+      img.style.opacity = "0.6";
+      img.style.border = "1px solid transparent";
+    });
+
+    // highlight selected
+    imageEl.style.opacity = "1";
+    imageEl.style.border = "1px solid white";
   });
 
   gallery.appendChild(imageEl);
