@@ -145,7 +145,7 @@
     background:#111;
   "></div>
 
-  <img id="mainImage" class="main-img" src="" style="opacity:0;">
+ <img id="mainImage" class="main-img" src="" style="opacity:0;" loading="eager" decoding="async">
 
 </div>
 
@@ -447,7 +447,8 @@ const gallery = document.querySelector(".gallery");
 gallery.innerHTML = "";
 
 images.forEach((img, index) => {
-  const imageEl = document.createElement("img");
+ const imageEl = document.createElement("img");
+imageEl.loading = "lazy";
   imageEl.src = img;
 
   // highlight first image
