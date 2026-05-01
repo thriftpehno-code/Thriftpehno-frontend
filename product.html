@@ -120,7 +120,19 @@
       font-weight: bold;
       cursor: pointer;
     }
-
+  .sticky-buy {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  background: #25D366;
+  color: white;
+  text-align: center;
+  padding: 14px;
+  font-size: 14px;
+  letter-spacing: 1px;
+  z-index: 999;
+} 
   </style>
 
 </head>
@@ -311,6 +323,8 @@ const encodedMessage = encodeURIComponent(message);
 
 const whatsappLink = `https://wa.me/919370820852?text=${encodedMessage}`;
 
+document.getElementById("stickyBuy").href = whatsappLink;
+ 
 const buttons = document.getElementById("actionButtons");
 
 buttons.innerHTML = `
@@ -489,4 +503,17 @@ loadProduct();
 
 </script>
 <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+
+<a id="stickyBuy" class="sticky-buy" target="_blank">
+  BUY ON WHATSAPP
+</a>
+ 
 </body>
+
+
+
+
+
+
+
+ 
