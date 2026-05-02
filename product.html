@@ -321,7 +321,10 @@ const encodedMessage = encodeURIComponent(message);
 
 const whatsappLink = `https://wa.me/919370820852?text=${encodedMessage}`;
 
-document.getElementById("stickyBuy").href = whatsappLink;
+document.getElementById("stickyBuy").addEventListener("click", (e) => {
+  e.preventDefault();
+  document.getElementById("waPopup").style.display = "flex";
+});
  
 const buttons = document.getElementById("actionButtons");
 
@@ -502,7 +505,59 @@ loadProduct();
 </script>
 <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
 
-<a id="stickyBuy" class="floating-buy" target="_blank">
+<div id="waPopup" style="
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0,0,0,0.7);
+  display: none;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+">
+
+  <div style="
+    background: black;
+    padding: 20px;
+    width: 90%;
+    max-width: 300px;
+    border: 1px solid white;
+    text-align: center;
+  ">
+
+    <p style="margin-bottom:15px; font-size:14px;">
+      Continue as:
+    </p>
+
+    <button id="newCustomer" style="
+      width:100%;
+      padding:10px;
+      margin-bottom:10px;
+      background:#25D366;
+      border:none;
+      color:white;
+      cursor:pointer;
+    ">
+      New Customer
+    </button>
+
+    <button id="oldCustomer" style="
+      width:100%;
+      padding:10px;
+      background:white;
+      border:none;
+      color:black;
+      cursor:pointer;
+    ">
+      Existing Customer
+    </button>
+
+  </div>
+</div> 
+ 
+<a id="stickyBuy" class="floating-buy">
   WHATSAPP
 </a>
  
