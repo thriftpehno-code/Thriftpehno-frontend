@@ -244,6 +244,21 @@
 
       <!-- BUTTONS -->
     <div class="buttons" id="actionButtons" style="margin-top:20px;"></div>
+
+   <div style="
+  margin-top:20px;
+  font-size:12px;
+  opacity:0.7;
+  line-height:1.6;
+">
+
+  ✔ Verified thrift pieces  
+  <br>
+  ✔ Each item is unique (no restocks)  
+  <br>
+  ✔ Trusted by repeat customers  
+
+</div>
    
     <div class="gallery"></div>
 
@@ -291,7 +306,16 @@ if (!data || data.length === 0) {
 const product = data[0];
   // SET DATA
   document.getElementById("productName").innerText = product.name;
-  document.getElementById("productPrice").innerText = "₹" + product.price;
+ document.getElementById("productPrice").innerHTML = `
+  ₹${product.price}
+  <span style="
+    font-size:11px;
+    opacity:0.6;
+    margin-left:6px;
+  ">
+    • prepaid only • no cod
+  </span>
+`;
   document.getElementById("productSize").innerText = "Size: " + product.size;
  
   document.getElementById("productSize").innerHTML += `
