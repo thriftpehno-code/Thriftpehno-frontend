@@ -547,52 +547,62 @@ loadProduct();
 ">
 
  <div style="
-  background: black;
-  padding: 20px;
+  background: #0d0d0d;
+  padding: 24px;
   width: 90%;
-  max-width: 300px;
-  border: 1px solid white;
+  max-width: 320px;
   text-align: center;
   position: relative;
+  border-radius: 8px;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.5);
 ">
   
-  <div id="closePopup" style="
-    position:absolute;
-    top:8px;
-    right:10px;
-    cursor:pointer;
-    font-size:14px;
-  ">
-    ✕
-  </div>
+ <div id="closePopup" style="
+  position:absolute;
+  top:10px;
+  right:12px;
+  cursor:pointer;
+  font-size:16px;
+  opacity:0.6;
+">
+  ✕
+</div>
   
-    <p style="margin-bottom:15px; font-size:14px;">
-      Continue as:
-    </p>
+   <p style="
+  margin-bottom:20px;
+  font-size:13px;
+  letter-spacing:1px;
+  opacity:0.7;
+">
+  SELECT CUSTOMER TYPE
+</p>
 
     <button id="newCustomer" style="
-      width:100%;
-      padding:10px;
-      margin-bottom:10px;
-      background:#25D366;
-      border:none;
-      color:white;
-      cursor:pointer;
-    ">
-      New Customer
-    </button>
+  width:100%;
+  padding:12px;
+  margin-bottom:12px;
+  background:#25D366;
+  border:none;
+  color:white;
+  cursor:pointer;
+  font-size:13px;
+  letter-spacing:1px;
+">
+  NEW CUSTOMER
+</button>
 
-    <button id="oldCustomer" style="
-      width:100%;
-      padding:10px;
-      background:white;
-      border:none;
-      color:black;
-      cursor:pointer;
-    ">
-      Existing Customer
-    </button>
-
+<button id="oldCustomer" style="
+  width:100%;
+  padding:12px;
+  background:#1a1a1a;
+  border:1px solid #333;
+  color:white;
+  cursor:pointer;
+  font-size:13px;
+  letter-spacing:1px;
+">
+  EXISTING CUSTOMER
+</button>
   </div>
 </div> 
  
