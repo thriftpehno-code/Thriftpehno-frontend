@@ -325,11 +325,30 @@ document.getElementById("stickyBuy").addEventListener("click", (e) => {
   e.preventDefault();
   document.getElementById("waPopup").style.display = "flex";
 });
+const newMsg = encodeURIComponent(`Hi, I’m interested in this item.
+
+Before we proceed, here’s how we work:
+
+• We take prepaid orders only
+• Once booked, the piece is reserved for you
+• As these are thrift pieces, we don’t offer returns or exchanges
+
+Let me know if this works for you 🙂`);
+
+const oldMsg = encodeURIComponent(`Hey! I want to book this item 🙂`);
+
+document.getElementById("newCustomer").addEventListener("click", () => {
+  window.open(`https://wa.me/919370820852?text=${newMsg}`, "_blank");
+});
+
+document.getElementById("oldCustomer").addEventListener("click", () => {
+  window.open(`https://wa.me/919370820852?text=${oldMsg}`, "_blank");
+});
  
 const buttons = document.getElementById("actionButtons");
 
 buttons.innerHTML = `
-<a href="${whatsappLink}" target="_blank" class="wa-btn">
+<a href="#" id="mainBuyBtn" class="wa-btn">
   BUY ON WHATSAPP
 </a>
 
@@ -349,6 +368,11 @@ buttons.innerHTML = `
     PAY NOW
   </button>
 `;
+document.getElementById("mainBuyBtn").addEventListener("click", (e) => {
+  e.preventDefault();
+  document.getElementById("waPopup").style.display = "flex";
+});
+ 
 let images = [];
 
 if (product.images) {
