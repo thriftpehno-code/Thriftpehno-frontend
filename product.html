@@ -542,15 +542,26 @@ loadProduct();
   z-index: 1000;
 ">
 
-  <div style="
-    background: black;
-    padding: 20px;
-    width: 90%;
-    max-width: 300px;
-    border: 1px solid white;
-    text-align: center;
+ <div style="
+  background: black;
+  padding: 20px;
+  width: 90%;
+  max-width: 300px;
+  border: 1px solid white;
+  text-align: center;
+  position: relative;
+">
+  
+  <div id="closePopup" style="
+    position:absolute;
+    top:8px;
+    right:10px;
+    cursor:pointer;
+    font-size:14px;
   ">
-
+    ✕
+  </div>
+  
     <p style="margin-bottom:15px; font-size:14px;">
       Continue as:
     </p>
