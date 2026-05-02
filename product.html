@@ -344,6 +344,10 @@ document.getElementById("newCustomer").addEventListener("click", () => {
 document.getElementById("oldCustomer").addEventListener("click", () => {
   window.open(`https://wa.me/919370820852?text=${oldMsg}`, "_blank");
 });
+
+document.getElementById("closePopup").addEventListener("click", () => {
+  document.getElementById("waPopup").style.display = "none";
+});
  
 const buttons = document.getElementById("actionButtons");
 
