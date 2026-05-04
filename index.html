@@ -164,12 +164,15 @@ async function loadProducts() {
 
   data.forEach(product => {
 
-// SIZE FILTER (TEMP DISABLED)
-if (false) {
+// SIZE FILTER (FINAL FIX)
+if (selectedSize && selectedSize !== "ALL") {
 
   const m = Number(product.measurement);
 
-  if (isNaN(m)) return;
+  // skip ONLY if measurement invalid AND filtering is active
+  if (!product.measurement || isNaN(m)) {
+    return;
+  }
 
   if (selectedSize.includes(">")) {
     const min = Number(selectedSize.replace(">", ""));
