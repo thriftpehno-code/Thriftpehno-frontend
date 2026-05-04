@@ -223,10 +223,10 @@ if (selectedSize && selectedSize !== "ALL") {
 
     grid.innerHTML += `
   <a href="product.html?id=${product.id}" style="text-decoration:none; color:white;">
-    <div style="
+  <div style="
   display:flex;
   flex-direction:column;
-  gap:6px;
+  gap:4px;
   transition:all 0.25s ease;
 "
 onmouseover="this.style.transform='translateY(-4px)'"
@@ -243,13 +243,23 @@ onmouseout="this.style.transform='translateY(0)'"
        "
   >
 </div>
-      <p style="font-size:13px; opacity:0.8; margin:0;">
-        ${product.name}
-      </p>
-
-      <p style="font-size:14px; font-weight:500; margin:0;">
-        ₹${product.price}
-      </p>
+     <p style="
+  font-size:12px;
+  letter-spacing:1.2px;
+  text-transform:uppercase;
+  opacity:0.7;
+  margin:0;
+">
+  ${product.name}
+</p>
+      <p style="
+  font-size:16px;
+  font-weight:600;
+  margin:2px 0 0 0;
+  letter-spacing:0.5px;
+">
+  ₹${product.price}
+</p>
 
       <p style="font-size:11px; color:#ff4d4d; margin:2px 0 0 0;">
   Only 1 piece available
