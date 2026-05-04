@@ -164,10 +164,11 @@ async function loadProducts() {
 
   data.forEach(product => {
 
-   // SIZE FILTER (TEMP DISABLED)
+// SIZE FILTER (TEMP DISABLED)
 if (false) {
 
   const m = Number(product.measurement);
+
   if (isNaN(m)) return;
 
   if (selectedSize.includes(">")) {
