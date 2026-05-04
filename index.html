@@ -165,12 +165,12 @@ async function loadProducts() {
   data.forEach(product => {
 
     // SIZE FILTER
-    if (selectedSize && selectedSize !== "ALL") {
+    if (selectedSize && selectedSize !== "ALL" && product.measurement) {
 
-      const m = Number(product.measurement);
-      if (isNaN(m)) return;
+  const m = Number(product.measurement);
+  if (isNaN(m)) return;
 
-      if (selectedSize.includes(">")) {
+  if (selectedSize.includes(">")) {
         const min = Number(selectedSize.replace(">", ""));
         if (m <= min) return;
       }
@@ -247,29 +247,10 @@ onmouseout="this.style.transform='translateY(0)'"
   ">
     VIEW PRODUCT →
   </span>
-
-  <a href="https://wa.me/919370820852?text=${encodeURIComponent(
-`Hi, I want to buy this item:
-
-Name: ${product.name}
-Price: ₹${product.price}
-Size: ${product.size}
-
-Is this still available?`
-)}"
-  target="_blank"
-  style="
-    font-size:11px;
-    color:#25D366;
-    text-decoration:none;
-    font-weight:500;
-  ">
-    BUY
-  </a>
-
+  
 </p>
 
-    </div>
+</div>
   </a>
 `;
 });
