@@ -164,31 +164,43 @@ async function loadProducts() {
 
   data.forEach(product => {
 
-// SIZE FILTER (FINAL FIX)
+// SIZE FILTER (FINAL CLEAN VERSION)
 if (selectedSize && selectedSize !== "ALL") {
 
-  const m = Number(product.measurement);
+  // 👉 PANTS + LADIES (numeric filtering)
+  if (selectedCategory === "pants" || selectedCategory === "ladies") {
 
-  // skip ONLY if measurement invalid AND filtering is active
-  if (!product.measurement || isNaN(m)) {
-    return;
+    const m = Number(product.measurement);
+    if (!product.measurement || isNaN(m)) return;
+
+    if (selectedSize.includes(">")) {
+      const min = Number(selectedSize.replace(">", ""));
+      if (m <= min) return;
+    }
+
+    else if (selectedSize.includes("<")) {
+      const max = Number(selectedSize.replace("<", ""));
+      if (m >= max) return;
+    }
+
+    else if (selectedSize.includes("-")) {
+      const range = selectedSize.match(/\d+/g);
+      const min = Number(range[0]);
+      const max = Number(range[1]);
+      if (m < min || m > max) return;
+    }
   }
 
-  if (selectedSize.includes(">")) {
-    const min = Number(selectedSize.replace(">", ""));
-    if (m <= min) return;
-  }
+  // 👉 ALL OTHER CATEGORIES (text size filtering)
+  else {
 
-  else if (selectedSize.includes("<")) {
-    const max = Number(selectedSize.replace("<", ""));
-    if (m >= max) return;
-  }
+    if (!product.size) return;
 
-  else if (selectedSize.includes("-")) {
-    const range = selectedSize.match(/\d+/g);
-    const min = Number(range[0]);
-    const max = Number(range[1]);
-    if (m < min || m > max) return;
+    const selectedBase = selectedSize.split(" ")[0]; // "M (38-39)" → "M"
+
+    if (!product.size.includes(selectedBase)) {
+      return;
+    }
   }
 }
 
