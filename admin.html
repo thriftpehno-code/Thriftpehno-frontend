@@ -120,7 +120,7 @@
 </div>
 
 <script>
-const ADMIN_PASSWORD = "1234";
+const ADMIN_PASSWORD = "tp_admin_9271";
 
 document.addEventListener("DOMContentLoaded", function () {
   const input = document.getElementById("password");
@@ -128,21 +128,21 @@ document.addEventListener("DOMContentLoaded", function () {
 
   input.focus();
 
-  input.addEventListener("input", function () {
+  function unlockAdmin() {
     if (input.value === ADMIN_PASSWORD) {
       admin.style.display = "block";
+      input.style.display = "none";
       loadAdminProducts();
+    } else {
+      alert("Wrong password");
+      input.value = "";
+      input.focus();
     }
-  });
+  }
 
   input.addEventListener("keydown", function (e) {
     if (e.key === "Enter") {
-      if (input.value === ADMIN_PASSWORD) {
-        admin.style.display = "block";
-        loadAdminProducts();
-      } else {
-        alert("Wrong password");
-      }
+      unlockAdmin();
     }
   });
 });
